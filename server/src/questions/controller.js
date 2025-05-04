@@ -6,7 +6,7 @@ const client = new Together({ apiKey: process.env.TOGETHER_API_KEY });
 
 const addQuestion = async (req, res) => {
     const { topic_id } = req.params;
-    const { question, answers, correct_answer, difficulty, active = true } = req.body;
+    const { question, answers, correct_answer, active = true } = req.body;
 
 
     try {
@@ -44,7 +44,7 @@ const addQuestion = async (req, res) => {
 
 const updateQuestion = async (req, res) => {
     const { question_id } = req.params;
-    const { question, answers, correct_answer, difficulty, active } = req.body;
+    const { question, answers, correct_answer, active } = req.body;
 
     try {
         const existingQuestion = await pool.query(queries.getQuestionById, [question_id]);
@@ -59,7 +59,6 @@ const updateQuestion = async (req, res) => {
             answer3: answers?.[2] || existingQuestion.rows[0].answer3,
             answer4: answers?.[3] || existingQuestion.rows[0].answer4,
             correct_answer: correct_answer || existingQuestion.rows[0].correct_answer,
-            difficulty: difficulty || existingQuestion.rows[0].difficulty,
             active: active !== undefined ? active : existingQuestion.rows[0].active
         };
 
@@ -70,7 +69,6 @@ const updateQuestion = async (req, res) => {
             updateData.answer3,
             updateData.answer4,
             updateData.correct_answer,
-            updateData.difficulty,
             updateData.active,
             question_id
         ]);
