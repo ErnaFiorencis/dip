@@ -18,7 +18,7 @@ export const Welcome = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api/v1';
+  const BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000';
   const token = localStorage.getItem('token');
 
   useEffect(() => {

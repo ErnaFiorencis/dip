@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './Profile.css';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export const Profile = () => {
   // State for user data
+  const location = useLocation();
+  const navigate = useNavigate();
   const [userName, setUsername] = useState(localStorage.getItem('username') || 'Student');
   const [userId, setUserId] = useState(localStorage.getItem('user_id') || '12345');
   
@@ -147,7 +150,7 @@ export const Profile = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('username');
     localStorage.removeItem('user_id');
-    window.location.href = '/login';
+    navigate('/login');
   };
 
   return (

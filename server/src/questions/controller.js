@@ -28,7 +28,6 @@ const addQuestion = async (req, res) => {
             answers[3],
             correct_answer,
             topic_id,
-            difficulty || 1,
             active
         ]);
 
