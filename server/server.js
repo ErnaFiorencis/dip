@@ -14,12 +14,12 @@ const adminRoutes = require("./src/admin/routes")
 app.use(cors());
 app.use(express.json());
 app.use("/students", studentRoutes)
-app.use("/api/v1/classroom", classroomRoutes)
-app.use("/api/v1/questions", questionsRoutes)	
-app.use("/api/v1/subjects", subjectRoutes) 
-app.use("/api/v1/topics", topicRoutes)
-app.use("/api/v1/game-sessions", gameSessionRoutes)
-app.use("/api/v1/admin", adminRoutes)
+app.use("/classroom", classroomRoutes)
+app.use("/questions", questionsRoutes)	
+app.use("/subjects", subjectRoutes) 
+app.use("/topics", topicRoutes)
+app.use("/game-sessions", gameSessionRoutes)
+app.use("/admin", adminRoutes)
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
