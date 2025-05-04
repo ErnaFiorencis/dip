@@ -5,8 +5,8 @@ module.exports = {
     
     addQuestion: `
         INSERT INTO quiz_questions 
-        (question, answer1, answer2, answer3, answer4, correct_answer, topic_id, difficulty, active)
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+        (question, answer1, answer2, answer3, answer4, correct_answer, topic_id, active)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $9)
         RETURNING question_id
     `,
     
@@ -18,30 +18,29 @@ module.exports = {
             answer3 = $4,
             answer4 = $5,
             correct_answer = $6,
-            difficulty = $7,
-            active = $8
-        WHERE question_id = $9
+            active = $7
+        WHERE question_id = $8
     `,
     deleteQuestion: "DELETE FROM quiz_questions WHERE question_id = $1",
     
     getQuestionById: "SELECT * FROM quiz_questions WHERE question_id = $1",
     
     getQuestionsByTopic: `
-        SELECT question_id, question, answer1, answer2, answer3, answer4, correct_answer, difficulty, active
+        SELECT question_id, question, answer1, answer2, answer3, answer4, correct_answer, active
         FROM quiz_questions
         WHERE topic_id = $1 
         ORDER BY created_at DESC
     `,
     
     getActiveQuestionsByTopic: `
-        SELECT question_id, question, answer1, answer2, answer3, answer4, correct_answer, difficulty
+        SELECT *
         FROM quiz_questions
         WHERE topic_id = $1 AND active = true
         ORDER BY created_at DESC
     `,	
 
     getRandomQuestion: `
-        SELECT question_id, question, answer1, answer2, answer3, answer4, correct_answer, difficulty
+        SELECT *
         FROM quiz_questions
         WHERE topic_id = $1 AND active = TRUE
         ORDER BY RANDOM()
