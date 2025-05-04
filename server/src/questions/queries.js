@@ -6,7 +6,7 @@ module.exports = {
     addQuestion: `
         INSERT INTO quiz_questions 
         (question, answer1, answer2, answer3, answer4, correct_answer, topic_id, active)
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $9)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
         RETURNING question_id
     `,
     
