@@ -1,0 +1,160 @@
+.profile-container {
+    color: #353262;
+    display: flex;
+    flex-direction: column;
+    padding: 1%;
+    text-align: center;
+    min-height: 90vh;
+    margin: 0 auto;
+    max-width: 90%;
+    background: #d2e077;
+    align-items: center;
+}
+
+.top-icons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 2%;
+}
+
+.profile-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.profile-name {
+    font-size: 2rem;
+    font-family: "game-ui";
+    margin: 0.5rem;
+}
+
+.logout-btn {
+    margin: 1rem;
+    padding: 0.4rem 1.2rem;
+    border: none;
+    border-radius: 10px;
+    background: #f44336;
+    color: #fff;
+    font-size: 1.1rem;
+    font-family: inherit;
+    cursor: pointer;
+    box-shadow: 0 2px 5px #0001;
+    transition: background 0.2s;
+}
+.logout-btn:hover {
+    background: #c62828;
+}
+
+.profile-classroom {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.3rem;
+    margin: 1rem;
+}
+.classroom-select {
+    font-size: 1.1rem;
+    padding: 0.2rem 0.7rem;
+    border-radius: 8px;
+    border: 1px solid #4CAF50;
+    background: #fff;
+    font-family: inherit;
+}
+
+/* Profile Tabs */
+.profile-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 1rem 0;
+
+}
+
+.profile-tab-btn {
+    background: #fff;
+    border: 2px solid #4CAF50;
+    border-radius: 10px;
+    padding: 0.5rem 1.2rem;
+    font-size: 1.1rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.2s, border 0.2s;
+}
+.profile-tab-btn.active {
+    background: #4CAF50;
+    color: #fff;
+    border-bottom: 2px solid #d2e077;
+}
+
+/* Topic Filter Row */
+.topic-filter-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    margin: 1.2rem;
+}
+
+.stats{
+    width: 90%;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 0.5rem 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+}
+.topic-label {
+    font-size: 1.1rem;
+}
+.topic-select {
+    font-size: 1.1rem;
+    padding: 0.2rem 0.7rem;
+    border-radius: 8px;
+    border: 1px solid #4CAF50;
+    background: #fff;
+    font-family: inherit;
+}
+
+/* Statistics Section */
+.profile-stats-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    margin: 1.2rem;
+
+}
+
+.profile-pie-chart {
+    width: 90px;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f9f9f9; /* Slightly lighter background for the pie chart */
+    border-radius: 50%; /* Make it circular */
+    padding: 0.5rem; /* Add padding inside the circle */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  }
+  
+.profile-stats-details {
+    text-align: left;
+    font-size: 1.2rem;
+    font-family: "game-ui";
+    background: #f9f9f9; /* Lighter background for the stats details */
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.profile-stats-details div {
+    margin: 0.2rem 0;
+}
+
+.profile-stats-details span {
+    font-weight: bold;
+    color: #4CAF50;
+}

@@ -1,0 +1,131 @@
+.competition-computer-container {
+    color: #353262;
+    display: flex;
+    flex-direction: column;
+    padding: 1%;
+    text-align: center;
+    height: 90vh;
+    margin: 0 auto;
+    max-width: 90%;
+    margin: 0 auto;
+}
+.main-part {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1;
+    height: 100%; /* Fill full remaining height */
+    width: 100%;
+  }
+.question-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    padding: 1rem 0;
+}
+.answers{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.answer-btn{
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.2s;
+}
+.game-container {
+    height: 70%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+.robot-container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+ 
+    margin-bottom: 1%;
+  }
+.robot-icon{
+    width: 60px; /* Set an exact width */
+    height: auto;
+    margin-bottom: 1%;
+}
+.robot-active {
+  filter: brightness(1.6); /* Highlight the robot */
+  transform: scale(1.2); /* Slightly enlarge the robot */
+}
+.wrong-icon, .correct-icon{
+    width: 56px; /* Width of one frame */
+    height: 60px;
+    align-items: center;
+    visibility: hidden; /* Initially hidden */
+}
+.wrong-icon.visible, .correct-icon.visible {
+  visibility: visible;
+}
+.answer-btn:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+}
+
+.tug-of-war-c {
+    height: 70%; 
+    width: 95%; 
+    margin: 0 auto; /* Center the tug-of-war container horizontally */
+    position: relative;
+    background-color: #91c8cf; /* Brown background for the tug-of-war area */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-top: #d9d9d6 solid 10px;
+    border-bottom: #d9d9d6 solid 10px;
+  }
+  
+  .rope-c {
+    width: 20px; 
+    height: 100%; 
+    background-color: #b5a881; 
+    position: relative;
+  }
+  
+  .mark-c {
+    width: 40px; 
+    height: 40px; 
+    background-color: #af2d2b; /* Gold color for the mark */
+    border-radius: 50%; /* Make it circular */
+    position: absolute;
+    left: -10px; /* Center it horizontally on the rope */
+    top: calc(50% - 20px); /* Default position in the middle of the rope */
+    transition: top 0.5s ease; /* Smooth movement when updating position */
+  }
+
+  .left-of-rope, .right-of-rope {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px; /* Set a fixed width for the elements */
+    height: 100px; /* Set a fixed height for the elements */
+    background-color: #f0f0f0; /* Optional background color */
+    font-family: "game-ui";
+    font-size: 1.5rem; /* Adjust font size */
+    font-weight: bold;
+    color: #353262;
+}
+.left-of-rope {
+  font-size: 2rem;
+}

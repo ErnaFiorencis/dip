@@ -1,0 +1,192 @@
+.competition-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #d2e077;
+}
+.game-started{
+  display: flex;
+}
+.student-interface {
+  flex: 1 1;
+  padding: 1rem;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.left-of-rope, .right-of-rope {
+  font-size: 2rem;
+}
+.tug-of-war {
+  height: 70%;
+  width: 95%;
+  margin: 0 auto;
+  position: relative;
+  background-color: #91c8cf;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-top: #d9d9d6 solid 10px;
+  border-bottom: #d9d9d6 solid 10px;
+}
+
+.rope {
+  width: 20px;
+  height: 100%;
+  background-color: #b5a881;
+  position: relative;
+}
+
+.mark {
+  width: 40px;
+  height: 40px;
+  background-color: #af2d2b;
+  border-radius: 50%;
+  position: absolute;
+  left: -10px;
+  top: calc(50% - 20px);
+  transition: top 0.5s ease;
+}
+
+
+.answer-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.answer-buttons button {
+  padding: 10px;
+  font-size: 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+
+
+.answer-btn.wrong {
+  background-color: #ff4d4d; /* Red color for wrong answers */
+  color: white;
+  animation: shake 0.3s; /* Optional shake animation */
+} 
+
+/* ... rest of your existing CSS ... */
+
+.competition-container {/* Fun font for the whole page */
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  color: #353262; 
+}
+
+
+
+.student1 {
+  border-bottom: 0.2rem solid #353262;
+  
+  
+}
+
+.student2 {
+  border-top: 0.2rem solid #353262;
+}
+
+.rotated-content {
+  transform: rotate(180deg);
+}
+
+.header {
+  font-size: 2rem;
+  color: #353262; 
+}
+
+.login-form label {
+  display: block;
+  color: #353262; /* Label color matching your app */
+}
+
+.login-form input {
+  padding: 0.8rem;
+  font-size: 1.2rem;
+  border-radius: 8px;
+}
+
+.login-button {
+  padding: 0.8rem;
+  font-size: 1.2rem;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+}
+
+.start-button {
+  padding: 0.8rem;
+  font-size: 1.2rem;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+}
+
+.submit-button {
+  padding: 0.8rem;
+  font-size: 1.2rem;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+}
+
+.countdown {
+  font-size: 3rem;
+  color: #353262;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.waiting-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sticker {
+  width: 15%;
+  margin: 2%;
+}
+.sticker-cool {
+  width: 25%;
+  margin: 2%;
+}
+
+.question-container {
+  width: 100%;
+  padding: 1rem 0;
+  text-align: center;
+}
+
+.st-comp-buttons{
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #3f51b5;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 2%;
+  transition: background-color 0.3s;
+}
+.cancel{
+  background-color: #f44336;
+}

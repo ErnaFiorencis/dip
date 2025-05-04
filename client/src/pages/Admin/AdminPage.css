@@ -1,0 +1,393 @@
+
+body {
+    background-color: #d2e077;
+  }
+.welcome-container{
+    color: #353262;
+    padding: 1%;
+    text-align: center;
+    max-width: 90%;
+    margin: 0 auto;
+}
+.welcome-text{
+    font-family: "game-ui";
+    font-size: 3rem;
+}
+
+.chose-text{
+    font-family: "game-ui";
+    font-size: 1.5rem;
+    padding: 1%;
+}
+
+.rabbit-container {
+    width: 64px;
+    height: 60px;
+    overflow: hidden;
+    margin: 20px auto;
+  }
+
+.rabbit {
+    background-image: url('../../../public/sprites/rabbit.png');
+    width: 64px; /* Width of one frame */
+    height: 60px; /* Height of one frame */
+    background-repeat: no-repeat;
+    transform: scale(2);  /* Double the size */
+    transform-origin: top left;  /* Scale from the top-left corner */
+  }
+
+  .top-icons {
+    display: flex;
+    justify-content: space-between; /* Moves elements to both ends */
+    margin-bottom: 2%;
+}
+
+.left-icons {
+    display: flex;
+    gap: 10px; /* Adds spacing between left icons if needed */
+}
+
+.right-icons {
+    display: flex;
+    gap: 10px;
+}
+
+.icon-button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.subject-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2%;
+    margin-top: 2%;
+  }
+.subject-button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .topic-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .topic-button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 200px;
+  }
+  
+  .topic-button:hover {
+    background-color: #45a049;
+  }
+  
+  .go-back-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+
+  
+  .activity-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  
+.topic-prompt, .topic-textarea{
+  width: 90%;
+  height: 50px;
+  margin: 2%;
+}
+
+.topic-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2%;
+}
+.save{
+    padding: 1% 2%;
+    background-color: #4CAF50;
+    color: white;
+    margin-top: 1%;
+    border: none;
+    border-radius: 5px;
+    font-size: medium;
+}
+
+.cancel, .discard{
+    padding: 1% 2%;
+    background-color: #f44336;
+    color: white;
+    margin-top: 1%;
+    border: none;
+    border-radius: 5px;
+    font-size: medium;
+}
+
+
+.questions-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+
+
+.edit-question-input:focus {
+  outline: none;
+  border-bottom-color: #4CAF50; /* Green focus */
+}
+
+.question-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.toggle-button {
+  padding: 5px 10px;
+  font-size: 0.9rem;
+  border-radius: 5px;
+}
+
+.toggle-button.active {
+  background-color: #4CAF50; /* Green for active */
+}
+
+.toggle-button.inactive {
+  background-color: #f44336; /* Red for inactive */
+}
+
+.edit-button,
+.delete-button {
+  padding: 5px;
+}
+
+.edit-button {
+  background-color: #FFD700; /* Gold for edit */
+}
+
+.delete-button {
+  background-color: #f44336; /* Red for delete */
+}
+
+.question {
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.question.editing {
+  background-color: #e8f5e9;
+  border: 2px solid #4CAF50;
+}
+
+.question-content {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.question-text {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.question-edit-header {
+  margin-bottom: 15px;
+}
+
+.question-edit-header label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.answers-container {
+  margin-bottom: 15px;
+}
+
+.answers-container label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.answers-preview {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.answer-preview {
+  background-color: #e0e0e0;
+  padding: 8px;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.answer-preview.correct {
+  background-color: #c8e6c9;
+  font-weight: bold;
+}
+
+.answer-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.edit-answer-input {
+  flex-grow: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-left: 8px;
+}
+
+.edit-question-input {
+  width: 90%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.question-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.topic-header {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.questions-header {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 20px 0 10px;
+}
+
+.add-question {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #3f51b5;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 15px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.edit-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.classroom-container{
+  color: #353262;
+  font-size: medium;
+  margin-top: 2%;
+  align-content: baseline;
+}
+.classroom-text{
+  font-family: "game-ui";
+  font-size: 1.5rem;
+  padding: 1%;
+}
+.add-classroom, .add-subject, .add-topic {
+  padding: 10px 20px;
+  margin: 1%;
+  font-size: 1rem;
+  background-color: #3f51b5;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.classroom-form, .subject-form, .topic-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: center;
+  gap: 5%;
+  margin-top: 2%;
+}
+
+
+.generated-questions-review {
+  background: #f8f8ff;
+  border: 1px solid #ddd;
+  padding: 1em;
+  margin: 1em 0;
+}
+.question-review {
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 1em;
+  padding-bottom: 1em;
+}
+.question-review:last-child {
+  border-bottom: none;
+}
+.question-review input[type="text"] {
+  width: 80%;
+  margin: 0.2em 0;
+}
+.question-review .save,
+.question-review .discard {
+  margin-right: 1em;
+}
+
+.form-group {
+  margin-bottom: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
