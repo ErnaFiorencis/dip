@@ -13,7 +13,7 @@ const adminRoutes = require("./src/admin/routes")
 //midleware
 app.use(cors());
 app.use(express.json());
-app.use("/api/v1/students", studentRoutes)
+app.use("students", studentRoutes)
 app.use("/api/v1/classroom", classroomRoutes)
 app.use("/api/v1/questions", questionsRoutes)	
 app.use("/api/v1/subjects", subjectRoutes) 
