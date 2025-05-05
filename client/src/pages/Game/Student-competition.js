@@ -122,7 +122,8 @@ export const StudentCompetition = () => {
 
   // Handle answers
   const handleAnswer = (player, index) => {
-    const isCorrect = index === currentQuestion.correctAnswer;
+    console.log('Player:', player, 'Index:', index, 'Correct Answer:', currentQuestion.correctAnswer);
+    const isCorrect = index === currentQuestion.correctAnswer - 1 ;
     const startTime = performance.now();
   
     if (player === 1) {
