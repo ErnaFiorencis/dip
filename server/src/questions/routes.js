@@ -33,5 +33,6 @@ router.get('/topic/:topic_id', controller.getQuestionsByTopic);
 router.get('/topic-active/:topic_id', controller.getActiveQuestionsByTopic);
 router.get('/random/:topic_id', controller.getRandomQuestion);
 router.get('/adaptive/:topic_id', checkToken, controller.getAdaptiveQuestions);
+router.post('/ai-adaptive/:topic_id', checkToken, controller.generateAdaptiveQuestions);
 
 module.exports = router;

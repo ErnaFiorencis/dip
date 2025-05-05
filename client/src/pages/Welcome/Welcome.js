@@ -17,6 +17,8 @@ export const Welcome = () => {
   const [classCode, setClassCode] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const [useAI, setUseAI] = useState(false);
+  
 
   const BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000';
   const token = localStorage.getItem('token');
@@ -132,6 +134,7 @@ export const Welcome = () => {
         classroom: selectedClassroom,
         subject: selectedSubject,
         topic: selectedTopic,
+        useAI: useAI,
       },
     });
   };
@@ -265,6 +268,16 @@ export const Welcome = () => {
         {selectedTopic && (
           <div className="activity-section">
             <div className="section-title">ZAIGRAJ:</div>
+            <div className="ai-toggle">
+            <label>
+              <input
+                type="checkbox"
+                checked={useAI}
+                onChange={(e) => setUseAI(e.target.checked)}
+              />
+              Koristi AI
+            </label>
+          </div>
             <div className="activity-buttons">
               <button className='activity-button' onClick={() => handleActivityClick('practice')}>Vježba</button>
               <button className='activity-button' onClick={() => handleActivityClick('computer-competition')}>Natjecanje protiv računala</button>
