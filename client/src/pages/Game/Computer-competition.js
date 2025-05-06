@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './ComputerCompetition.css';
-import { s } from 'motion/react-client';
 
 export const ComputerCompetition = () => {
   const location = useLocation();
