@@ -69,17 +69,20 @@ export const StudentCompetition = () => {
     }
   };
 
+  // Handle keyboard input changes
   const handleKeyboardChange = (input) => {
     setKeyboardInput(input);
-    setStudent1Credentials((prev) => ({
+    // Update the student1Credentials with the new input for the active field
+    setStudent1Credentials(prev => ({
       ...prev,
-      [keyboardTarget]: input,
+      [keyboardTarget]: input
     }));
   };
 
+  // Handle input field focus
   const handleInputFocus = (field) => {
-    setKeyboardTarget(field);
-    setKeyboardInput(student1Credentials[field]);
+    setKeyboardTarget(field); // Set which field is active
+    setKeyboardInput(student1Credentials[field]); // Set keyboard input to current field value
   };
 
   // Fetch questions from the backend
@@ -183,10 +186,10 @@ export const StudentCompetition = () => {
     }
   };
 
-
   const handleGoBack = () => {
     navigate('/', {state: location.state});
   }
+  
   const handleCancel = () => {
     setTimer(0); // Stop the timer
     setGameStarted(false);
@@ -213,7 +216,6 @@ export const StudentCompetition = () => {
     }
     
   }, [ropePosition]);
-
 
   const startGame = async () => {
     try {
@@ -411,17 +413,24 @@ export const StudentCompetition = () => {
                   <input
                     type="text"
                     value={student1Credentials.user_name}
+                    onChange={(e) => {
+                      // This is needed to make the input controlled, but the actual update happens via keyboard
+                      // We don't handle direct input changes here since we're using the virtual keyboard
+                    }}
                     onFocus={() => handleInputFocus('user_name')}
-                    readOnly // Make the input read-only to force virtual keyboard usage
+                    readOnly // Use readOnly to force virtual keyboard usage
                   />
                 </label>
                 <label>
                   Lozinka:
                   <input
-                    type="password"
+                    type="password" // Changed to password type for better security
                     value={student1Credentials.password}
+                    onChange={(e) => {
+                      // Same as above, controlled input but updates via keyboard
+                    }}
                     onFocus={() => handleInputFocus('password')}
-                    readOnly // Make the input read-only to force virtual keyboard usage
+                    readOnly
                   />
                 </label>
                 <button type="submit" className="login-button">Login</button>
@@ -429,7 +438,8 @@ export const StudentCompetition = () => {
               {errorMessage && <p className="error-message">{errorMessage}</p>}
               <Keyboard
                 onChange={handleKeyboardChange}
-                input={keyboardInput}
+                inputName={keyboardTarget} // Important: this tells keyboard which input to update
+                value={keyboardInput} // Current value of the active input
                 layout={{
                   default: [
                     '1 2 3 4 5 6 7 8 9 0',
@@ -450,6 +460,13 @@ export const StudentCompetition = () => {
                   '{bksp}': '⌫',
                   '{shift}': '⇧',
                   '{space}': '␣',
+                }}
+                onKeyPress={(button) => {
+                  // Handle special keys (optional)
+                  if (button === '{shift}') {
+                    // Handle shift key toggle
+                    // This is handled internally by the keyboard component
+                  }
                 }}
               />
             </>
