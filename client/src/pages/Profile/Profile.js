@@ -15,7 +15,7 @@ export const Profile = () => {
   const [topics, setTopics] = useState([]);
   
   // Selected values
-  const [selectedClassroom, setSelectedClassroom] = useState('');
+  const [selectedClassroom, setSelectedClassroom] = useState(null);
   const [selectedSubject, setSelectedSubject] = useState(null);
   const [selectedTab, setSelectedTab] = useState('all');
   const [selectedTopic, setSelectedTopic] = useState('all');
@@ -34,7 +34,8 @@ export const Profile = () => {
   ];
 
   const BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api/v1';
-  // Fetch user's classrooms and subjects on component mount
+  
+  // Fetch user's classrooms on component mount
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -47,22 +48,13 @@ export const Profile = () => {
         
         if (!classResponse.ok) throw new Error('Failed to fetch classrooms');
         const classData = await classResponse.json();
-        setClassrooms(classData);
-        setSelectedClassroom(classData[0].classroom_id);
-
-        // Fetch subjects for the first classroom
-        const subjectResponse = await fetch(`${BASE_URL}/subjects/classroom/${classData[0].classroom_id}`, {
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
-          }
-        });
         
-        if (!subjectResponse.ok) throw new Error('Failed to fetch subjects');
-        const subjectData = await subjectResponse.json();
-        setSubjects(subjectData);
-
-        setSelectedSubject(subjectData[0].subject_id);
-        
+        if (classData && classData.length > 0) {
+          setClassrooms(classData);
+          setSelectedClassroom(classData[0]); // Store the whole classroom object
+        } else {
+          setError('No classrooms available.');
+        }
       } catch (err) {
         console.error('Error fetching initial data:', err);
         setError('Failed to load user data. Please try again later.');
@@ -72,11 +64,56 @@ export const Profile = () => {
     fetchUserData();
   }, []);
 
+  // Fetch subjects when classroom changes
+  useEffect(() => {
+    if (!selectedClassroom) return;
+
+    const fetchSubjects = async () => {
+      setLoading(true);
+      try {
+        const subjectResponse = await fetch(`${BASE_URL}/subjects/classroom/${selectedClassroom.classroom_id}`, {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          }
+        });
+        
+        if (!subjectResponse.ok) throw new Error('Failed to fetch subjects');
+        const subjectData = await subjectResponse.json();
+        
+        setSubjects(subjectData);
+        
+        // Set first subject as selected if available
+        if (subjectData && subjectData.length > 0) {
+          setSelectedSubject(subjectData[0].subject_id);
+          setError(null); // Clear any previous error
+        } else {
+          // No subjects available for this classroom
+          setSelectedSubject(null);
+          setTopics([]);
+          // Clear stats and show a specific message for no subjects
+          setStats({ games: 0, wins: 0, points: 0, percent: 0 });
+          setError(`Razred "${selectedClassroom.name}" nema dodijeljenih predmeta.`);
+        }
+        
+      } catch (err) {
+        console.error('Error fetching subjects:', err);
+        setError('Failed to load subjects. Please try again later.');
+        setSelectedSubject(null);
+        setTopics([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchSubjects();
+  }, [selectedClassroom]);
+
   // Fetch topics when subject changes
   useEffect(() => {
     if (!selectedSubject) return;
-    console.log('Fetching topics for subject:', selectedSubject);
+    
     const fetchTopics = async () => {
+      setLoading(true);
       try {
         const response = await fetch(`${BASE_URL}/topics/subject/${selectedSubject}`, {
           headers: {
@@ -88,29 +125,40 @@ export const Profile = () => {
         const data = await response.json();
         
         // Add "all" option at the beginning
-        const allTopics = [{ id: 'all', name: 'Sve teme' }, ...data];
+        const allTopics = [{ topic_id: 'all', name: 'Sve teme' }, ...data];
         setTopics(allTopics);
-        console.log('Fetched topics:', allTopics);
         setSelectedTopic('all');
+        
+        // Clear topic-related errors if any
+        if (error && error.includes('tema')) {
+          setError(null);
+        }
       } catch (err) {
         console.error('Error fetching topics:', err);
-        setError('Failed to load topics. Please try again later.');
+        // Only set topics error if not already showing a subject error
+        if (!error || !error.includes('predmet')) {
+          setError('Failed to load topics. Please try again later.');
+        }
+        // Set at least the "all" option
+        setTopics([{ topic_id: 'all', name: 'Sve teme' }]);
+        setSelectedTopic('all');
+      } finally {
+        setLoading(false);
       }
     };
     
     fetchTopics();
-  }, [selectedSubject]);
+  }, [selectedSubject, error]);
 
   // Fetch stats when selections change
   useEffect(() => {
-    if (!userId || !selectedSubject) return;
+    if (!userId || !selectedSubject || !selectedClassroom) return;
   
     const fetchStats = async () => {
       setLoading(true);
-      console.log(selectedTopic)
       try {
         const params = new URLSearchParams({
-          classroom_id: selectedClassroom,
+          classroom_id: selectedClassroom.classroom_id,
           subject_id: selectedSubject,
           game_mode: selectedTab === 'ukupno' ? 'all' : selectedTab,
           topic_id: selectedTopic,
@@ -136,21 +184,48 @@ export const Profile = () => {
           points: statsData.points,
           percent,
         });
+        
+        // Clear any previous error on successful stats retrieval
+        if (error && error.includes('statistics')) {
+          setError(null);
+        }
       } catch (err) {
         console.error('Error fetching stats:', err);
         setError('Failed to load statistics. Please try again later.');
+        // Set empty stats to prevent showing stale data
+        setStats({ games: 0, wins: 0, points: 0, percent: 0 });
       } finally {
         setLoading(false);
       }
     };
   
     fetchStats();
-  }, [userId, selectedClassroom, selectedSubject, selectedTopic, selectedTab]);
+  }, [userId, selectedClassroom, selectedSubject, selectedTopic, selectedTab, error]);
+  
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('username');
     localStorage.removeItem('user_id');
     navigate('/login');
+  };
+
+  // Handle classroom change 
+  const handleClassroomChange = (e) => {
+    // Find the classroom object by ID
+    const selectedIndex = e.target.selectedIndex;
+    const selectedClassroomObj = classrooms[selectedIndex];
+    
+    // Set the selected classroom with the whole object
+    setSelectedClassroom(selectedClassroomObj);
+    
+    // Reset subject, topic and error when changing classroom
+    setSelectedSubject(null);
+    setSelectedTopic('all');
+    setTopics([]);
+    setError(null);
+    
+    // Reset stats to prevent showing stale data
+    setStats({ games: 0, wins: 0, points: 0, percent: 0 });
   };
 
   return (
@@ -160,18 +235,18 @@ export const Profile = () => {
           <button 
             className="icon-button back" 
             aria-label="Go Back"
-            onClick={() => window.history.back()}
+            onClick={() => navigate(-1)}
           >
             🔙
           </button>
         </div>
         <div className="right-icons">
-          <button className="icon-button home" aria-label="Home" onClick={() => window.location.href = '/'}>🏠</button>
-          <button className="icon-button profile" aria-label="Profile" onClick={() => window.location.href='/profile'}>👤</button>
+          <button className="icon-button home" aria-label="Home" onClick={() => navigate('/')}>🏠</button>
+          <button className="icon-button profile" aria-label="Profile" onClick={() => navigate('/profile')}>👤</button>
           <button 
             className="icon-button leaderboard" 
             aria-label="Leaderboard"
-            onClick={() => window.location.href = '/leaderboard'}
+            onClick={() => navigate('/leaderboard')}
           >
             🏆
           </button>
@@ -186,25 +261,33 @@ export const Profile = () => {
           <span>RAZRED:</span>
           <select
             className="classroom-select"
-            value={selectedClassroom}
-            onChange={e => setSelectedClassroom(e.target.value)}
-       
+            value={selectedClassroom ? selectedClassroom.classroom_id : ''}
+            onChange={handleClassroomChange}
+            disabled={classrooms.length === 0}
           >
             {classrooms.map(c => (
-              <option key={c.id} value={c.id}>{c.name}</option>
+              <option key={c.classroom_id} value={c.classroom_id}>
+                {c.name}
+              </option>
             ))}
           </select>
           
           <span>PREDMET:</span>
           <select
             className="subject-select"
-            value={selectedSubject}
-            onChange={e => setSelectedSubject(e.target.value)}
-           
+            value={selectedSubject || ''}
+            onChange={(e) => setSelectedSubject(e.target.value)}
+            disabled={subjects.length === 0 || loading}
           >
-            {subjects.map(s => (
-              <option key={s.id} value={s.subject_id}>{s.name}</option>
-            ))}
+            {subjects.length > 0 ? (
+              subjects.map(s => (
+                <option key={s.subject_id} value={s.subject_id}>
+                  {s.name}
+                </option>
+              ))
+            ) : (
+              <option value="">Nema dostupnih predmeta</option>
+            )}
           </select>
         </div>
 
@@ -216,7 +299,7 @@ export const Profile = () => {
                 key={tab.id}
                 className={`profile-tab-btn${selectedTab === tab.id ? ' active' : ''}`}
                 onClick={() => setSelectedTab(tab.id)}
-                disabled={loading}
+                disabled={loading || !selectedSubject}
               >
                 {tab.label}
               </button>
@@ -230,10 +313,12 @@ export const Profile = () => {
               className="topic-select"
               value={selectedTopic}
               onChange={e => setSelectedTopic(e.target.value)}
-              disabled={loading || topics.length === 0}
+              disabled={loading || topics.length === 0 || !selectedSubject}
             >
               {topics.map(topic => (
-                <option key={topic.topic_id} value={topic.topic_id}>{topic.name}</option>
+                <option key={topic.topic_id || topic.id} value={topic.topic_id || topic.id}>
+                  {topic.name}
+                </option>
               ))}
             </select>
           </div>
@@ -266,7 +351,7 @@ export const Profile = () => {
                     strokeWidth="8"
                     fill="none"
                     strokeDasharray={2 * Math.PI * 40}
-                    strokeDashoffset={2 * Math.PI * 40 * (1 - (stats.wins / stats.games))}
+                    strokeDashoffset={2 * Math.PI * 40 * (1 - (stats.games > 0 ? stats.wins / stats.games : 0))}
                     strokeLinecap="round"
                     style={{ transition: 'stroke-dashoffset 0.7s' }}
                     transform="rotate(-90 45 45)" /* Rotate so progress starts at top */

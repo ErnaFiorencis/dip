@@ -568,9 +568,9 @@ export const AdminPage = () => {
           <button className="icon-button back" aria-label="Go Back" onClick={handleGoBack}>🔙</button>
         </div>
         <div className="right-icons">
-          <button className="icon-button home" aria-label="Home" onClick={() => window.location.href = '/admin'}>🏠</button>
-          <button className="icon-button profile" aria-label="Profile" onClick={() => window.location.href = '/profile'}>👤</button>
-          <button className="icon-button leaderboard" aria-label="Leaderboard" onClick={() => window.location.href = '/leaderboard'}>🏆</button>
+        <button className="icon-button home" aria-label="Home" onClick={() => navigate('/')}>🏠</button>
+          <button className="icon-button profile" aria-label="Profile" onClick={() => navigate('/profile')}>👤</button>
+          <button className="icon-button leaderboard" aria-label="Leaderboard" onClick={() => navigate('/leaderboard')}>🏆</button>
         </div>
       </div>
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Leaderboard.css';
+import { useNavigate } from 'react-router-dom';
 
 
 export const Leaderboard = () => {
@@ -12,6 +13,7 @@ export const Leaderboard = () => {
   const [leaderboardData, setLeaderboardData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api/v1';
   // Fetch classrooms, subjects, and topics on component mount
@@ -108,12 +110,12 @@ export const Leaderboard = () => {
     <div className="leaderboard-container">
       <div className="top-icons">
         <div className="left-icons">
-          <button className="icon-button back" aria-label="Go Back" onClick={() => window.history.back()}>🔙</button>
+          <button className="icon-button back" aria-label="Go Back" onClick={() =>  navigate(-1)}>🔙</button>
         </div>
         <div className="right-icons">
-          <button className="icon-button home" aria-label="Home" onClick={() => window.location.href = '/'}>🏠</button>
-          <button className="icon-button profile" aria-label="Profile" onClick={() => window.location.href = '/profile'}>👤</button>
-          <button className="icon-button leaderboard" aria-label="Leaderboard" onClick={() => window.location.href = '/leaderboard'}>🏆</button>
+          <button className="icon-button home" aria-label="Home" onClick={() => navigate('/')}>🏠</button>
+          <button className="icon-button profile" aria-label="Profile" onClick={() => navigate('/profile')}>👤</button>
+          <button className="icon-button leaderboard" aria-label="Leaderboard" onClick={() => navigate('/leaderboard')}>🏆</button>
         </div>
       </div>
 

@@ -28,7 +28,7 @@ export const Practice = () => {
   });
   const [points, setPoints] = useState(1);
   const [readyToSend, setReadyToSend] = useState(false);
-  const [attempts, setAttempts] = useState(0);
+  const [attempts, setAttempts] = useState(1);
   const [questionBlocks, setQuestionBlocks] = useState([]);
   const [currentBlock, setCurrentBlock] = useState(0);
   const [correctInBlock, setCorrectInBlock] = useState(0);
@@ -174,7 +174,7 @@ export const Practice = () => {
       correct_answers: prev.correct_answers + (isCorrect ? 1 : 0),
       wrong_answers: prev.wrong_answers + (!isCorrect ? 1 : 0)
     }));
-    
+    setAttempts(prev => prev + 1);
     // Record the attempt
     if (currentQuestion.question_id) {
       recordQuestionAttempt(currentQuestion.question_id, index + 1, isCorrect, timer);
@@ -183,7 +183,7 @@ export const Practice = () => {
     // Update block statistics
     const newCorrectInBlock = correctInBlock + (isCorrect ? 1 : 0);
     setCorrectInBlock(newCorrectInBlock);
-    setAttempts(prev => prev + 1);
+    
     
     if (isCorrect) {
       setIsRunning(true);
@@ -217,7 +217,7 @@ export const Practice = () => {
           setFinished(true);
         } else {
           setCurrentIdx(nextIndex);
-          setAttempts(0);
+          setAttempts(1);
         }
         
         setIsRunning(false);
@@ -249,7 +249,7 @@ export const Practice = () => {
           setFinished(true);
         } else {
           setCurrentIdx(currentIdx + 1);
-          setAttempts(0); 
+          setAttempts(1); 
         }
       }, 800);
     } else {
@@ -317,9 +317,9 @@ export const Practice = () => {
           <button className="icon-button back" aria-label="Go Back" onClick={handleGoBack}>🔙</button>
         </div>
         <div className="right-icons">
-          <button className="icon-button home" aria-label="Home" onClick={() => window.location.href = '/'}>🏠</button>
-          <button className="icon-button profile" aria-label="Profile" onClick={() => window.location.href = '/profile'}>👤</button>
-          <button className="icon-button leaderboard" aria-label="Leaderboard" onClick={() => window.location.href = '/leaderboard'}>🏆</button>
+          <button className="icon-button home" aria-label="Home" onClick={() => navigate('/')}>🏠</button>
+          <button className="icon-button profile" aria-label="Profile" onClick={() => navigate('/profile')}>👤</button>
+          <button className="icon-button leaderboard" aria-label="Leaderboard" onClick={() => navigate('/leaderboard')}>🏆</button>
         </div>
       </div>
       <div className="main-part">
@@ -363,7 +363,7 @@ export const Practice = () => {
                 total_questions: 0,
                 time_taken: 0,
               });
-              setAttempts(0);
+              setAttempts(1);
               setQuestionBlocks([]);
               setCurrentBlock(0);
               setCorrectInBlock(0);

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './ComputerCompetition.css';
+import { s } from 'motion/react-client';
 
 export const ComputerCompetition = () => {
   const location = useLocation();
@@ -63,16 +64,19 @@ export const ComputerCompetition = () => {
     // Robot answers adaptively
   useEffect(() => {
       if (gameStarted && currentQuestion) {
-        const averageTime = studentStats.totalAnswers > 0 ? (studentStats.time_taken / studentStats.correct_answers) * 10000 : 7;
-        const accuracy = studentStats.totalAnswers > 0 ? studentStats.correct_answers / studentStats.totalAnswers : 0.5;
-        const robotAnswerTime = Math.max(5, Math.min(10, averageTime)); // Robot answers between 2 and 10 seconds
-        const robotCorrectChance = Math.random() < Math.max(accuracy, 0.5) ? true : false;
+        console.log(studentStats);
+        const averageTime = studentStats.total_questions > 1 ? (studentStats.time_taken / studentStats.correct_answers) * 10000 : 7;
+        console.log('Average time taken:', averageTime);
+        const accuracy = studentStats.total_questions > 0 ? studentStats.correct_answers / studentStats.total_questions : 0.5;
+        const robotAnswerTime = Math.max(2, Math.min(averageTime + 1, averageTime - 1)); // Robot answers between 2 and 10 seconds
+        console.log('Robot answer time:', robotAnswerTime);
+        const robotCorrectChance = Math.random() < Math.max(accuracy + 0.15, 0.5) ? true : false;
   
         const interval = setTimeout(() => {
           setRobotIsAnswering(true);
           const robotAnswer = robotCorrectChance
-            ? currentQuestion.correctAnswer
-            : currentQuestion.answers.find((_, idx) => idx !== currentQuestion.correctAnswer);
+            ? currentQuestion.correctAnswer - 1
+            : currentQuestion.answers.find((_, idx) => idx !== currentQuestion.correctAnswer - 1);
           setRobotFeedback(robotCorrectChance ? 'correct' : 'wrong');
           setTimeout(() => {    
             handleAnswer('Robot', robotAnswer);
@@ -130,7 +134,7 @@ export const ComputerCompetition = () => {
   };
 
   const handleAnswer = (player, index) => {
-    const isCorrect = index === currentQuestion.correctAnswer;
+    const isCorrect = index === currentQuestion.correctAnswer - 1;
     if (player === 'Player') {
       const startTime = performance.now();
       setStudentStats((prev) => ({
@@ -218,9 +222,9 @@ export const ComputerCompetition = () => {
           <button className="icon-button back" aria-label="Go Back" onClick={handleGoBack}>🔙</button>
         </div>
         <div className="right-icons">
-        <button className="icon-button home" aria-label="Home" onClick={() => window.location.href = '/'}>🏠</button>
-          <button className="icon-button profile" aria-label="Profile" onClick={() => window.location.href = '/profile'}>👤</button>
-          <button className="icon-button leaderboard" aria-label="Leaderboard" onClick={() => window.location.href = '/leaderboard'}>🏆</button>
+        <button className="icon-button home" aria-label="Home" onClick={() => navigate('/')}>🏠</button>
+          <button className="icon-button profile" aria-label="Profile" onClick={() => navigate('/profile')}>👤</button>
+          <button className="icon-button leaderboard" aria-label="Leaderboard" onClick={() => navigate('/leaderboard')}>🏆</button>
         </div>
       </div>
       <div className="main-part">

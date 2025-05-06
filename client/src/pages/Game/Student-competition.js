@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './StudentCompetition.css';
+import Keyboard from 'react-simple-keyboard';
+import 'react-simple-keyboard/build/css/index.css';
 
 export const StudentCompetition = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [student1LoggedIn, setStudent1LoggedIn] = useState(false);
   const [student1Credentials, setStudent1Credentials] = useState({ user_name: '', password: '' });
+  const [keyboardInput, setKeyboardInput] = useState(''); // State for virtual keyboard input
+  const [keyboardTarget, setKeyboardTarget] = useState('user_name'); // Track which input field is active
   const [gameStarted, setGameStarted] = useState(false);
   const [countdown, setCountdown] = useState(null);
   const [currentQuestion, setCurrentQuestion] = useState(null);
@@ -63,6 +67,19 @@ export const StudentCompetition = () => {
     } catch (error) {
       setErrorMessage('An error occurred during login. Please try again.');
     }
+  };
+
+  const handleKeyboardChange = (input) => {
+    setKeyboardInput(input);
+    setStudent1Credentials((prev) => ({
+      ...prev,
+      [keyboardTarget]: input,
+    }));
+  };
+
+  const handleInputFocus = (field) => {
+    setKeyboardTarget(field);
+    setKeyboardInput(student1Credentials[field]);
   };
 
   // Fetch questions from the backend
@@ -394,8 +411,8 @@ export const StudentCompetition = () => {
                   <input
                     type="text"
                     value={student1Credentials.user_name}
-                    onChange={(e) => setStudent1Credentials(prev => ({ ...prev, user_name: e.target.value }))}
-                    required
+                    onFocus={() => handleInputFocus('user_name')}
+                    readOnly // Make the input read-only to force virtual keyboard usage
                   />
                 </label>
                 <label>
@@ -403,13 +420,38 @@ export const StudentCompetition = () => {
                   <input
                     type="password"
                     value={student1Credentials.password}
-                    onChange={(e) => setStudent1Credentials(prev => ({ ...prev, password: e.target.value }))}
-                    required
+                    onFocus={() => handleInputFocus('password')}
+                    readOnly // Make the input read-only to force virtual keyboard usage
                   />
                 </label>
                 <button type="submit" className="login-button">Login</button>
               </form>
               {errorMessage && <p className="error-message">{errorMessage}</p>}
+              <Keyboard
+                onChange={handleKeyboardChange}
+                input={keyboardInput}
+                layout={{
+                  default: [
+                    '1 2 3 4 5 6 7 8 9 0',
+                    'q w e r t y u i o p',
+                    'a s d f g h j k l',
+                    'z x c v b n m',
+                    '{shift} {space} {bksp}',
+                  ],
+                  shift: [
+                    '1 2 3 4 5 6 7 8 9 0',
+                    'Q W E R T Y U I O P',
+                    'A S D F G H J K L',
+                    'Z X C V B N M',
+                    '{shift} {space} {bksp}',
+                  ],
+                }}
+                display={{
+                  '{bksp}': '⌫',
+                  '{shift}': '⇧',
+                  '{space}': '␣',
+                }}
+              />
             </>
           ) : countdown ? (
             <div className="waiting-state">
