@@ -16,7 +16,7 @@ export const StudentCompetition = () => {
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [questions, setQuestions] = useState([]);
   const [ropePosition, setRopePosition] = useState(50); // 50 means middle
-  const { subject, topic, activity, topic_id } = location.state;
+  const { subject, topic, activity, topic_id, classroom } = location.state;
   const [winner, setWinner] = useState(null);
   const [timer, setTimer] = useState(120); // 2-minute countdown
   const [errorMessage, setErrorMessage] = useState('');
@@ -48,26 +48,35 @@ export const StudentCompetition = () => {
   // Handle user login
   const handleStudent1Login = async (e) => {
     e.preventDefault();
+    if (student1Credentials.user_name === localStorage.getItem('username')) {
+      setErrorMessage('Ne možeš se prijaviti kao isti korisnik'); // "You cannot log in as the same user."
+      return;
+  }
     try {
-      const response = await fetch(`${BASE_URL}/students/signin`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(student1Credentials),
-      });
-      if (!response.ok) {
-        const errorData = await response.json();
-        setErrorMessage(errorData.message || 'Login failed. Please try again.');
-        return;
-      }
-      const data = await response.json();
-      //localStorage.setItem('token', data.token);
-      setPlayer1(data); // Store Player 2's token
-      setStudent1LoggedIn(true);
-      setErrorMessage('');
+        const response = await fetch(`${BASE_URL}/students/oppSignIn`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                user_name: student1Credentials.user_name,
+                password: student1Credentials.password,
+                classroom_id: classroom.classroom_id
+            }),
+        });
+        if (!response.ok) {
+            const errorData = await response.json();
+            console.log('Error:', errorData);
+            setErrorMessage(errorData.message || 'Login failed. Please try again.');
+            return;
+        }
+        const data = await response.json();
+        setPlayer1(data); // Store Player 2's token
+        setStudent1LoggedIn(true);
+        setErrorMessage('');
     } catch (error) {
-      setErrorMessage('An error occurred during login. Please try again.');
+        console.error('Error during login:', error);
+        setErrorMessage('An error occurred during login. Please try again.');
     }
-  };
+};
 
   // Handle keyboard input changes
   const handleKeyboardChange = (input) => {

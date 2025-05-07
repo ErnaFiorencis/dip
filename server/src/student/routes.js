@@ -28,6 +28,7 @@ const checkToken = (req, res, next) => {
 router.get("/", controller.getStudents)
 router.post("/", controller.addStudent)
 router.post("/signIn", controller.signIn)
+router.post("/oppSignIn", controller.oppSignIn)
 router.get('/classrooms', checkToken, controller.studentsClassrooms)
 router.get('/me', checkToken, controller.getStudentByToken)
 router.put('/:user_id', controller.updateStudent)

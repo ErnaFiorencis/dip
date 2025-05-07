@@ -18,12 +18,21 @@ const updateStudent = `
 `
 const deleteStudent = "DELETE FROM users WHERE user_id = $1"    
 
+const getUserClassroom = `
+    SELECT u.user_id, u.user_name, u.role, c.classroom_id, c.class_code, c.name
+    FROM users u
+    JOIN classroom_students cs ON u.user_id = cs.student_id
+    JOIN classrooms c ON cs.classroom_id = c.classroom_id
+    WHERE u.user_name = $1 AND c.classroom_id = $2
+`
+
 module.exports = {
     getStudents,
     getStudentById,
     checkUserExists,
     addStudent,
     checkClassroomCode,
+    getUserClassroom,
     getUserByUsername,
     getClassroomByCode,
     updateStudent,

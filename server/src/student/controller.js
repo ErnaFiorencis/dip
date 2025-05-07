@@ -118,6 +118,47 @@ const signIn = async (req, res) => {
     }
 };
 
+const oppSignIn = async (req, res) => {
+    const { user_name, password, classroom_id } = req.body;
+    if (!user_name || !password || !classroom_id) {
+        return res.status(400).json({ message: "Username, password, and classroom ID are required." });
+    }
+    try {
+        const checkClassroom = await pool.query(queries.getUserClassroom, [user_name, classroom_id]);
+        if (checkClassroom.rows.length === 0) {
+            return res.status(401).json({ message: "Učenik nije u učionici." }); // "Student is not in the classroom."
+        }
+    } catch (error) {
+        return res.status(500).json({ message: "Server error while checking classroom.", error: error.message });
+    }
+    try {
+        const userResult = await pool.query(queries.getUserByUsername, [user_name]);
+        if (userResult.rows.length === 0) {
+            return res.status(401).json({ message: "Invalid credentials. User not found." });
+        }
+        const user = userResult.rows[0];
+        const validPassword = await bcrypt.compare(password, user.password_hash);
+        if (!validPassword) {
+            return res.status(401).json({ message: "Invalid credentials. Incorrect password." });
+        }
+        const token = jwt.sign(
+            { 
+                user_id: user.user_id,
+                role: user.role
+            },
+            process.env.SECRET,
+            { expiresIn: '24h' }
+        );
+        res.status(200).json({
+            token,
+            user_id: user.user_id,
+            role: user.role
+        });
+    } catch (error) {
+        res.status(500).json({ message: "Server error during login.", error: error.message });
+    }
+};
+
 const getStudentById = async (req, res) => {
     const { user_id } = req.params;
     try {
@@ -211,4 +252,5 @@ module.exports = {
     deleteStudent,
     studentsClassrooms,
     getStudentByToken,
+    oppSignIn
 }
