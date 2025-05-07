@@ -45,6 +45,8 @@ export const StudentCompetition = () => {
 
   const BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api/v1';
 
+  const [keyboardLayout, setKeyboardLayout] = useState('default'); // Track the current layout
+
   // Handle user login
   const handleStudent1Login = async (e) => {
     e.preventDefault();
@@ -145,7 +147,7 @@ export const StudentCompetition = () => {
       return () => clearInterval(countdown);
     } else if (timer === 0) {
       setWinner(ropePosition < 50 ? 'Player 2' : 'Player 1');
-      handleGameEnd();
+      handleGameEnd(ropePosition < 50 ? 'Player 2' : 'Player 1');
     }
   }, [timer, gameStarted]);
 
@@ -215,13 +217,14 @@ export const StudentCompetition = () => {
   useEffect(() => {
     if (ropePosition <= 5) {
       setWinner("Player 1");
-      setTimer(0); // Stop the timer
-      handleGameEnd();
+      setTimer(-1); // Stop the timer
+      handleGameEnd("Player 1");
 
     } else if (ropePosition >= 95) {
       setWinner("Player 2");
-      setTimer(0); // Stop the timer
-      handleGameEnd();
+      console.log("Player 2 wins");
+      setTimer(-1); // Stop the timer
+      handleGameEnd("Player 2");
     }
     
   }, [ropePosition]);
@@ -297,7 +300,7 @@ export const StudentCompetition = () => {
     }
   };
 
-  const handleGameEnd = async () => {
+  const handleGameEnd = async (winner) => {
     console.log('Game ended');
     console.log(winner);
     try {
@@ -359,6 +362,22 @@ export const StudentCompetition = () => {
       if (!playe1Response.ok) {
         throw new Error('Failed to end Player 1 session');
       }
+
+      console.log("updating ability ratings");
+
+      const updateAbilityRatingsResponse = await fetch(`${BASE_URL}/game-sessions/update-ability`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+        body: JSON.stringify({
+          winner_id: winner === 'Player 2' ? localStorage.getItem('user_id') : player1.user_id,
+          loser_id: winner === 'Player 2' ? player1.user_id : localStorage.getItem('user_id'),
+          topic_id: topic.topic_id
+        }),
+      });
+      console.log(updateAbilityRatingsResponse);
     } catch (error) {
       console.error('Error ending game sessions:', error);
     }
@@ -470,11 +489,10 @@ export const StudentCompetition = () => {
                   '{shift}': '⇧',
                   '{space}': '␣',
                 }}
+                layoutName={keyboardLayout} // Use the current layout
                 onKeyPress={(button) => {
-                  // Handle special keys (optional)
                   if (button === '{shift}') {
-                    // Handle shift key toggle
-                    // This is handled internally by the keyboard component
+                    setKeyboardLayout((prevLayout) => (prevLayout === 'default' ? 'shift' : 'default')); // Toggle layout
                   }
                 }}
               />

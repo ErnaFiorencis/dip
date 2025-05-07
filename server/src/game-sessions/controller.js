@@ -40,6 +40,60 @@ function calculateElo(playerRating, questionRating, isCorrect, attempts, maxAtte
   };
 }
 
+const updateAbilityRatings = async (req, res) => {
+  const { winner_id, loser_id, topic_id } = req.body;
+
+  if (!winner_id || !loser_id || !topic_id) {
+    return res.status(400).json({ error: 'Required fields: winner_id, loser_id, and topic_id' });
+  }
+
+  try {
+    // Fetch current ability ratings for both players
+    const [winnerResult, loserResult] = await Promise.all([
+      pool.query('SELECT ability_rating FROM student_topic_ability WHERE student_id = $1 AND topic_id = $2', [winner_id, topic_id]),
+      pool.query('SELECT ability_rating FROM student_topic_ability WHERE student_id = $1 AND topic_id = $2', [loser_id, topic_id]),
+    ]);
+
+    const winnerRating = winnerResult.rows[0]?.ability_rating || 800; // Default to 800 if no rating exists
+    const loserRating = loserResult.rows[0]?.ability_rating || 800;
+
+    // Calculate new ratings using Elo formula
+    const expectedWinner = 1 / (1 + 10 ** ((loserRating - winnerRating) / 400));
+    const expectedLoser = 1 / (1 + 10 ** ((winnerRating - loserRating) / 400));
+    const kFactor = 32;
+
+    const newWinnerRating = Math.round(winnerRating + kFactor * (1 - expectedWinner));
+    const newLoserRating = Math.round(loserRating + kFactor * (0 - expectedLoser));
+
+    // Update the database with the new ratings
+    await Promise.all([
+      pool.query(`
+        INSERT INTO student_topic_ability (student_id, topic_id, ability_rating)
+        VALUES ($1, $2, $3)
+        ON CONFLICT (student_id, topic_id) DO UPDATE SET
+          ability_rating = EXCLUDED.ability_rating
+      `, [winner_id, topic_id, newWinnerRating]),
+      pool.query(`
+        INSERT INTO student_topic_ability (student_id, topic_id, ability_rating)
+        VALUES ($1, $2, $3)
+        ON CONFLICT (student_id, topic_id) DO UPDATE SET
+          ability_rating = EXCLUDED.ability_rating
+      `, [loser_id, topic_id, newLoserRating]),
+    ]);
+
+    res.status(200).json({
+      success: true,
+      message: 'Ability ratings updated successfully',
+      data: {
+        winner: { student_id: winner_id, new_rating: newWinnerRating },
+        loser: { student_id: loser_id, new_rating: newLoserRating },
+      },
+    });
+  } catch (error) {
+    console.error('Error updating ability ratings:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
 
 const recordQuestionAttempt = async (req, res) => {
   const { session_id } = req.params;
@@ -259,5 +313,6 @@ module.exports = {
   getSubjectStats,
   deleteUnfinishedSessions,
   getFilteredStats,
-  getFilteredLeaderboard
+  getFilteredLeaderboard,
+  updateAbilityRatings,
 };

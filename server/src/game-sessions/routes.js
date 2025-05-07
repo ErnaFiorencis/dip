@@ -34,4 +34,5 @@ router.get('/stats/subjects/:subject_id', checkToken, controller.getSubjectStats
 router.delete('/unfinished', controller.deleteUnfinishedSessions);
 router.get('/stats', checkToken, controller.getFilteredStats);
 router.get('/leaderboard', checkToken, controller.getFilteredLeaderboard);
+router.post('/update-ability', checkToken, controller.updateAbilityRatings);
 module.exports = router;
