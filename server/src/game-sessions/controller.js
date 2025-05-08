@@ -95,6 +95,46 @@ const updateAbilityRatings = async (req, res) => {
   }
 };
 
+const updateAbilityRatingComputer = async (req, res) => {
+  const { winner, topic_id } = req.body;
+  const user_id = req.decoded.user_id; // Assuming the loser is the current user
+  try{
+    const [winnerResult] = await Promise.all([
+      pool.query('SELECT ability_rating FROM student_topic_ability WHERE student_id = $1 AND topic_id = $2', [user_id, topic_id]),
+    ]);
+
+    const rating = winnerResult.rows[0]?.ability_rating || 800; // Default to 800 if no rating exists
+    const kFactor = 32;
+    let newRating = rating; // Initialize newRating
+    if(winner){
+      const expectedWinner = 1 / (1 + 10 ** ((rating - rating) / 400));
+      newRating = Math.round(rating + kFactor * (1 - expectedWinner));
+    }
+    else{
+      const expectedLoser = 1 / (1 + 10 ** ((rating - rating) / 400));
+      newRating = Math.round(rating + kFactor * (0 - expectedLoser));
+    }
+
+    // Update the database with the new ratings
+    await Promise.all([
+      pool.query(`
+        INSERT INTO student_topic_ability (student_id, topic_id, ability_rating)
+        VALUES ($1, $2, $3)
+        ON CONFLICT (student_id, topic_id) DO UPDATE SET
+          ability_rating = EXCLUDED.ability_rating
+      `, [user_id, topic_id, newRating]),
+    ]);
+    console.log('New Player Rating:', newRating);
+    res.status(200).json({
+      success: true,
+      message: 'Ability ratings updated successfully'
+    });
+  } catch (error) {
+    console.error('Error updating ability ratings:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}
+
 const recordQuestionAttempt = async (req, res) => {
   const { session_id } = req.params;
   const { question_id, selected_answer, is_correct, response_time, topic_id, attempts } = req.body;
@@ -315,4 +355,5 @@ module.exports = {
   getFilteredStats,
   getFilteredLeaderboard,
   updateAbilityRatings,
+  updateAbilityRatingComputer
 };

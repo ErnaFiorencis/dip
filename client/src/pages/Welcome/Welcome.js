@@ -24,6 +24,9 @@ export const Welcome = () => {
   const token = localStorage.getItem('token');
 
   useEffect(() => {
+    if(localStorage.getItem('role') === 'admin') {
+      navigate('/admin');
+    }
     const fetchUserData = async () => {
       try {
         const classroomResponse = await fetch(`${BASE_URL}/students/classrooms`, {
@@ -279,9 +282,9 @@ export const Welcome = () => {
             </label>
           </div>
             <div className="activity-buttons">
-              <button className='activity-button' onClick={() => handleActivityClick('practice')}>Vježba</button>
-              <button className='activity-button' onClick={() => handleActivityClick('computer-competition')}>Natjecanje protiv računala</button>
-              <button className='activity-button' onClick={() => handleActivityClick('student-competition')}>Natjecanje protiv drugog učenika</button>
+              <button className={`activity-button ${useAI  ? '' : ''}`} onClick={() => handleActivityClick('practice')}>Vježba</button>
+              <button className={`activity-button ${useAI  ? 'disabled' : ''}`} disabled={useAI} onClick={() => handleActivityClick('computer-competition')}>Natjecanje protiv računala</button>
+              <button className={`activity-button ${useAI  ? 'disabled' : ''}`} disabled={useAI}  onClick={() => handleActivityClick('student-competition')}>Natjecanje protiv drugog učenika</button>
             </div>
           </div>
         )}

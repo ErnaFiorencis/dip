@@ -1,0 +1,34 @@
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+
+.remove{
+    margin-left: 1rem;
+    margin-bottom: 0.2rem;
+    padding: 0.4rem 1.2rem;
+    border: none;
+    border-radius: 10px;
+    background: #f44336;
+    color: #fff;
+    font-size: 1.1rem;
+    font-family: inherit;
+    cursor: pointer;
+    box-shadow: 0 2px 5px #0001;
+    transition: background 0.2s;
+}
+
+.student-list{
+    font-size: 1.2rem;
+}
+
+.subject-select{
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    margin-left: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}

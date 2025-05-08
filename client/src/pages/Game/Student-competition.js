@@ -47,6 +47,8 @@ export const StudentCompetition = () => {
 
   const [keyboardLayout, setKeyboardLayout] = useState('default'); // Track the current layout
 
+  const [showAnswers, setShowAnswers] = useState(false); // New state to control answer visibility
+
   // Handle user login
   const handleStudent1Login = async (e) => {
     e.preventDefault();
@@ -146,15 +148,15 @@ export const StudentCompetition = () => {
       }, 1000);
       return () => clearInterval(countdown);
     } else if (timer === 0) {
-      setWinner(ropePosition < 50 ? 'Player 2' : 'Player 1');
-      handleGameEnd(ropePosition < 50 ? 'Player 2' : 'Player 1');
+      setWinner(ropePosition < 50 ? 'Player 1' : 'Player 2');
+      handleGameEnd(ropePosition < 50 ? 'Player 1' : 'Player 2');
     }
   }, [timer, gameStarted]);
 
   // Handle answers
   const handleAnswer = (player, index) => {
     console.log('Player:', player, 'Index:', index, 'Correct Answer:', currentQuestion.correctAnswer);
-    const isCorrect = index === currentQuestion.correctAnswer - 1 ;
+    const isCorrect = index === currentQuestion.correctAnswer - 1;
     const startTime = performance.now();
   
     if (player === 1) {
@@ -179,17 +181,17 @@ export const StudentCompetition = () => {
       setRopePosition((prev) => Math.max(0, Math.min(100, prev + movement)));
       const nextQuestionIndex = questions.indexOf(currentQuestion) + 1;
       if (nextQuestionIndex < questions.length) {
-        setCurrentQuestion(questions[nextQuestionIndex]);
+        setCurrentQuestion(questions[nextQuestionIndex]); // Change question immediately
       } else {
-        setCurrentQuestion(questions[0]);
+        setCurrentQuestion(questions[0]); // Reset to the first question if no more questions
       }
       setPlayer1Stats((prev) => ({
         ...prev,
-        total_questions: prev.total_questions + 1
+        total_questions: prev.total_questions + 1,
       }));
       setPlayer2Stats((prev) => ({
         ...prev,
-        total_questions: prev.total_questions + 1
+        total_questions: prev.total_questions + 1,
       }));
     } else {
       setWrongAnswerIdx({ player, index });
@@ -405,21 +407,40 @@ export const StudentCompetition = () => {
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   };
 
+  // Show answers 2 seconds after the question is set
+  useEffect(() => {
+    if (currentQuestion) {
+      setShowAnswers(false); // Hide answers initially
+      const timer = setTimeout(() => {
+        setShowAnswers(true); // Show answers after 2 seconds
+      }, 1500);
+      return () => clearTimeout(timer); // Cleanup timeout
+    }
+  }, [currentQuestion]);
+
   const renderGameInterface = (player) => (
     <>
       <div className='question-container'>
         <div className='question'>{currentQuestion.question}</div>
-        <div className="answer-buttons">
+        {showAnswers ? ( // Conditionally render answers
+          <div className="answer-buttons">
+            {currentQuestion.answers.map((answer, index) => (
+              <button
+                key={index}
+                className={`answer-btn ${wrongAnswerIdx?.player === player && wrongAnswerIdx?.index === index ? 'wrong' : ''}`}
+                onClick={() => handleAnswer(player, index)}
+              >
+                {answer}
+              </button>
+            ))}
+          </div>
+        ) : (<div className="answer-buttons">
           {currentQuestion.answers.map((answer, index) => (
-            <button
-              key={index}
-              className={`answer-btn ${wrongAnswerIdx?.player === player && wrongAnswerIdx?.index === index ? 'wrong' : ''}`}
-              onClick={() => handleAnswer(player, index)}
-            >
-              {answer}
-            </button>
-          ))}
-        </div>
+              <button className='answer-btn' key={index} disabled>
+                ...
+              </button>
+            ))}
+        </div>)}
       </div>
       <button className='cancel' onClick={handleCancel}>
         Odustani
@@ -515,7 +536,7 @@ export const StudentCompetition = () => {
             <>
             <h2>{winner === "Player 1" ? "Bravo! Pobijedio si!" : "Izgubio si!"}</h2>
             <button className="st-comp-buttons" onClick={handlePlayer1Ready} disabled={player1Ready}>Ponovno Igraj</button>
-            <button className="st-comp-buttons cancel" onClick={handleCancel}>Odustani </button>
+            <button className="st-comp-buttons cancel" onClick={handleCancel}>Odustani</button>
             </>
           ) : (
             renderGameInterface(1)

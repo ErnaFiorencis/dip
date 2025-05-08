@@ -239,21 +239,38 @@ const joinClassroom = async (req, res) => {
 
 const getClassroomInfo = async (req, res) => {
     const { classroom_id } = req.params;
-    const user_id = req.decoded.user_id;
 
     try {
+        // Fetch classroom details
         const classroom = await pool.query(queries.getClassroomById, [classroom_id]);
-
         if (classroom.rows.length === 0) {
-            return res.status(404).json({ error: "Classroom not found or unauthorized" });
+            return res.status(404).json({ error: "Classroom not found" });
         }
 
-        res.status(200).json(classroom.rows[0]);
+        // Fetch students in the classroom
+        const students = await pool.query(queries.getStudentsInClassroom, [classroom_id]);
+
+        res.status(200).json({
+            classroom: classroom.rows[0],
+            students: students.rows,
+        });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Server error while fetching classroom info" });
     }
-}
+};
+
+const getUserStatistics = async (req, res) => {
+    const { classroom_id, subject_id, topic_id } = req.query;
+
+    try {
+        const result = await pool.query(queries.getUserStatistics, [topic_id]);
+        res.status(200).json(result.rows);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Server error while fetching user statistics" });
+    }
+};
 
 
 
@@ -267,5 +284,6 @@ module.exports = {
     removeStudentFromClassroom,
     addStudentToClassroom,
     joinClassroom,
+    getUserStatistics,
     getClassroomInfo
 };

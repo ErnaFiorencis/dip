@@ -19,7 +19,7 @@ module.exports = {
     `,
     checkClassCodeExists: "SELECT * FROM classrooms WHERE class_code = $1",
     getStudentsInClassroom: `
-        SELECT u.user_id, u.user_name, u.created_at 
+        SELECT *
         FROM users u
         JOIN classroom_students cs ON u.user_id = cs.student_id
         WHERE cs.classroom_id = $1 AND u.role = 'student'
@@ -51,6 +51,13 @@ module.exports = {
             class_code = COALESCE($2, class_code)
         WHERE classroom_id = $3
         RETURNING *
+    `,
+    getUserStatistics: `
+        SELECT u.user_id, u.user_name, sta.ability_rating
+        FROM users u
+        JOIN student_topic_ability sta ON u.user_id = sta.student_id
+        WHERE sta.topic_id = $1
+        ORDER BY sta.ability_rating DESC
     `,
     insertStudentToClassroom: `
         INSERT INTO classroom_students (student_id, classroom_id) 

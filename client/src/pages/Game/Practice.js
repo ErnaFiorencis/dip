@@ -166,7 +166,7 @@ export const Practice = () => {
 
   const handleAnswerAI = async (index) => {
     const currentQuestion = questions[currentIdx];
-    const isCorrect = index === currentQuestion.correctAnswer;  // Fixed comparison
+    const isCorrect = index === currentQuestion.correctAnswer - 1;  // Fixed comparison
     
     // Update stats for both AI and non-AI modes consistently
     setStats((prev) => ({

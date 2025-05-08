@@ -55,7 +55,9 @@ export const ComputerCompetition = () => {
       }, 1000);
       return () => clearInterval(countdown);
     } else if (timer === 0) {
+      setTimer(-1);
       setWinner(ropePosition > 50 ? 'Vrijeme je isteklo, bio si bolji!' : 'Vrijeme je istrklo, računalo je bilo bolje');
+      handleGameEnd(ropePosition > 50, studentStats);
       setGameStarted(false);
     }
   }, [timer, gameStarted]);
@@ -165,7 +167,8 @@ export const ComputerCompetition = () => {
     }
   };
 
-  const handleGameEnd = async (winner) => {
+  const handleGameEnd = async (winner, studentStats) => {
+    console.log('Ending game session...');
       try {
         const response = await fetch(`${BASE_URL}/game-sessions/${sessionId}/end`, {
           method: 'POST',
@@ -188,6 +191,22 @@ export const ComputerCompetition = () => {
       } catch (error) {
         console.error('Error ending game session:', error);
       }
+      try{
+        const updateAbilityRatingsResponse = await fetch(`${BASE_URL}/game-sessions/update-ability-computer`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+          body: JSON.stringify({
+            winner: winner,
+            topic_id: topic.topic_id
+          }),
+        });
+
+      } catch (error) {
+        console.error('Error updating leaderboard:', error);
+      }
   };
 
 
@@ -195,11 +214,13 @@ export const ComputerCompetition = () => {
   useEffect(() => {
     if (ropePosition <= 0) {
       setWinner('Oh ne, izgubi si!');
-      handleGameEnd(false);
+      console.log('1')
+      handleGameEnd(false, studentStats);
       setGameStarted(false);
     } else if (ropePosition >= 95) {
       setWinner('Bravo! Pobijedi si računalo!');
-      handleGameEnd(true);
+      console.log('2')
+      handleGameEnd(true, studentStats);
       setGameStarted(false);
     }
     

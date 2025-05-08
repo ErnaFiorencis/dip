@@ -37,6 +37,9 @@ export const AdminPage = () => {
   const [schoolLevel, setSchoolLevel] = useState('osnovna'); // Default value
   const [gradeLevel, setGradeLevel] = useState(1); // Default value
 
+  const [deletingSubject, setDeletingSubject] = useState(null); // Subject to delete
+  const [deletingTopic, setDeletingTopic] = useState(null); // Topic to delete
+
   const BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api/v1';
   const token = localStorage.getItem('token');
 
@@ -77,6 +80,8 @@ export const AdminPage = () => {
 
         if (userData.role !== 'admin') {
           navigate('/'); // Redirect to home if the user is not an admin
+          localStorage.removeItem('token'); // Clear token if not admin
+          localStorage.removeItem('role'); // Clear user_id if not admin
         } else {
           setName(userData.user_name);
           fetchClassroomsAndSubjects();
@@ -532,6 +537,49 @@ export const AdminPage = () => {
     }
     setGenerating(false);
   }
+  const handleDeleteSubject = async () => {
+    if (!deletingSubject) return;
+  
+    try {
+      await fetch(`${BASE_URL}/subjects/${deletingSubject}`, {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${token}` },
+      });
+  
+      // Remove the deleted subject from the state
+      setSubjectsByClassroom((prev) => ({
+        ...prev,
+        [selectedClassroom]: prev[selectedClassroom].filter(
+          (subject) => subject.subject_id !== deletingSubject
+        ),
+      }));
+  
+      setDeletingSubject(null); // Close the confirmation popup
+      handleGoBack(); 
+    } catch (error) {
+      console.error('Error deleting subject:', error);
+    }
+  };
+  
+  const handleDeleteTopic = async () => {
+    if (!deletingTopic) return;
+  
+    try {
+      await fetch(`${BASE_URL}/topics/${deletingTopic}`, {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${token}` },
+      });
+  
+      // Remove the deleted topic from the state
+      setTopics((prev) => prev.filter((topic) => topic.topic_id !== deletingTopic));
+  
+      setDeletingTopic(null); // Close the confirmation popup
+      handleGoBack(); // Go back to the subject view
+
+    } catch (error) {
+      console.error('Error deleting topic:', error);
+    }
+  };
 
   const handleSaveNewQuestionAi = async (q) => {
     try {
@@ -574,7 +622,29 @@ export const AdminPage = () => {
         </div>
       </div>
 
-      
+      {deletingSubject && (
+        <div className="confirmation-popup">
+          <p>Jeste li sigurni da želite obrisati ovaj predmet?</p>
+          <button className="confirm-button" onClick={handleDeleteSubject}>
+            Da
+          </button>
+          <button className="cancel-button" onClick={() => setDeletingSubject(null)}>
+            Ne
+          </button>
+        </div>
+      )}
+
+      {deletingTopic && (
+        <div className="confirmation-popup">
+          <p>Jeste li sigurni da želite obrisati ovu temu?</p>
+          <button className="confirm-button" onClick={handleDeleteTopic}>
+            Da
+          </button>
+          <button className="cancel-button" onClick={() => setDeletingTopic(null)}>
+            Ne
+          </button>
+        </div>
+      )}
       
       {!selectedSubject ? (
         <>
@@ -639,6 +709,7 @@ export const AdminPage = () => {
                 <>
                   <div className="subject-buttons">
                     {(subjectsByClassroom[classroom.classroom_id] || []).map((subject) => (
+                      <div key={subject.subject_id} className="subject-item">
                       <button
                         className="subject-button"
                         key={subject.subject_id}
@@ -649,6 +720,7 @@ export const AdminPage = () => {
                       >
                         {subject.name ? subject.name.toUpperCase() : ''}
                       </button>
+                      </div>
                     ))}
                   </div>
                   <button
@@ -681,6 +753,16 @@ export const AdminPage = () => {
         </>
       ) : !selectedTopic ? (
         <>
+          <h1 className="subject-header">Predmet: {subjectsByClassroom[selectedClassroom].find(s => s.subject_id === selectedSubject)?.name}</h1>
+          <button
+          className="cancel"
+          onClick={(e) => {
+            e.stopPropagation(); // Prevent classroom click event
+            setDeletingSubject(selectedSubject); // Set the subject to delete
+          }}
+        >
+          Obriši predmet
+          </button>
           <h2>Odaberi Temu:</h2>
           <div className="subject-buttons">
           {topics.map((topic) => (
@@ -702,6 +784,15 @@ export const AdminPage = () => {
       ) : (
         <>
           <div className="topic-header">Tema: {topics.find(t => t.topic_id === selectedTopic)?.name}</div>
+          <button
+          className="cancel"
+          onClick={(e) => {
+            e.stopPropagation(); // Prevent classroom click event
+            setDeletingTopic(selectedTopic); // Set the subject to delete
+          }}
+        >
+          Obriši temu
+          </button>
           <div className='topic-container'>
             <textarea 
               className='topic-prompt'

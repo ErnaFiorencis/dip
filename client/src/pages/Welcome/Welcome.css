@@ -130,10 +130,7 @@ body {
     transition: background-color 0.3s;
     width: 250px;
   }
-  
-  .activity-button:hover {
-    background-color: #303f9f;
-  }
+
 
   .classroom-buttons {
     display: flex;
@@ -162,4 +159,10 @@ body {
   .selected {
     background-color: #4CAF50;
     color: white;
+  }
+
+  .disabled {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
   }

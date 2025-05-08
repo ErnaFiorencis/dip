@@ -36,5 +36,5 @@ router.post('/:classroom_id/students', controller.addStudentToClassroom);
 router.delete('/:classroom_id/students/:student_id', checkToken, controller.removeStudentFromClassroom);
 router.post('/join', checkToken, controller.joinClassroom); // Assuming you have a joinClassroom method in your controller
 router.get('/info/:classroom_id', checkToken, controller.getClassroomInfo); // Assuming you have a getClassroomInfo method in your controller
-
+router.get('/statistics', checkToken, controller.getUserStatistics); // Assuming you have a getUserStatistics method in your controller
 module.exports = router;
