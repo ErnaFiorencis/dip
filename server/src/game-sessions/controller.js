@@ -299,9 +299,18 @@ const deleteUnfinishedSessions = async (req, res) => {
 };
 
 const getFilteredStats = async (req, res) => {
+  const user_id = req.decoded.user_id;
   const { classroom_id, subject_id, game_mode, topic_id } = req.query;
 
   try {
+    console.log('Parameters:', {
+      classroom_id,
+      subject_id,
+      game_mode,
+      topic_id,
+      user_id
+    });
+
     const result = await pool.query(queries.getFilteredStats, [
       parseInt(classroom_id, 10),
       parseInt(subject_id, 10),
@@ -310,8 +319,10 @@ const getFilteredStats = async (req, res) => {
         ? ['pvp', 'computer', 'practice']           // $4
         : [game_mode],                              // $4
       topic_id === 'all' ? 'all' : parseInt(topic_id, 10), // $5
+      user_id                                      // $6
     ]);
-    
+
+    console.log('Query Result:', result.rows);
 
     res.json({
       success: true,

@@ -97,7 +97,7 @@ export const AnketaForm = ({ sessionId, onSubmitted }) => {
   // Mode-specific questions
   const modeQuestions = {
     mode1: {
-      title: 'Igra: vježba',
+      title: 'Utrka vježba',
       zabava: {
         question: 'Koliko ti je bio zabavan igrati igru vježbe?',
         options: [

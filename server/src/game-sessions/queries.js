@@ -104,6 +104,7 @@ module.exports = {
       AND gs.total_questions > 0
       AND ($3::text = 'all' OR gs.game_mode = ANY($4))
       AND ($5::text = 'all' OR t.topic_id = $5::int)
+      AND student_id = $6
 `,
 getFilteredLeaderboard: `
     SELECT 

@@ -192,7 +192,7 @@ export const Leaderboard = () => {
       <div className="leaderboard-rest">
         {rest.map((user, idx) => (
           <div className="leaderboard-rest-row" key={user.name}>
-            <span className="rest-place">{user.place}.</span>
+            <span className="rest-place">{idx + 4}.</span>
             <span className="rest-name">{user.name}</span>
             <span className="rest-points">{user.points}⭐</span>
           </div>
