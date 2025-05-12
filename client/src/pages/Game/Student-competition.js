@@ -149,7 +149,7 @@ export const StudentCompetition = () => {
       return () => clearInterval(countdown);
     } else if (timer === 0) {
       setWinner(ropePosition < 50 ? 'Player 1' : 'Player 2');
-      handleGameEnd(ropePosition < 50 ? 'Player 1' : 'Player 2');
+      handleGameEnd(ropePosition < 50 ? 'Player 1' : 'Player 2', timer);
     }
   }, [timer, gameStarted]);
 
@@ -219,14 +219,16 @@ export const StudentCompetition = () => {
   useEffect(() => {
     if (ropePosition <= 5) {
       setWinner("Player 1");
-      setTimer(-1); // Stop the timer
-      handleGameEnd("Player 1");
+       // Stop the timer
+      handleGameEnd("Player 1", timer);
+      setTimer(-1);
 
     } else if (ropePosition >= 95) {
       setWinner("Player 2");
       console.log("Player 2 wins");
-      setTimer(-1); // Stop the timer
-      handleGameEnd("Player 2");
+       // Stop the timer
+      handleGameEnd("Player 2", timer);
+      setTimer(-1);
     }
     
   }, [ropePosition]);
@@ -302,7 +304,7 @@ export const StudentCompetition = () => {
     }
   };
 
-  const handleGameEnd = async (winner) => {
+  const handleGameEnd = async (winner, timer) => {
     console.log('Game ended');
     console.log(winner);
     try {
@@ -334,7 +336,7 @@ export const StudentCompetition = () => {
           correct_answers: player2Stats.correct_answers,
           wrong_answers: player2Stats.wrong_answers,
           total_questions: player2Stats.total_questions,
-          time_taken: Math.floor(player2Stats.time_taken * 1000),
+          time_taken: 120 - timer,
           points: player2Points,
           winner: winner === 'Player 2',
         }),
@@ -355,7 +357,7 @@ export const StudentCompetition = () => {
           correct_answers: player1Stats.correct_answers,
           wrong_answers: player1Stats.wrong_answers,
           total_questions: player1Stats.total_questions,
-          time_taken: Math.floor(player1Stats.time_taken * 1000),
+          time_taken: 120 - timer,//Math.floor(player1Stats.time_taken * 1000),
           points: player1Points,
           winner: winner === 'Player 1',
         }),

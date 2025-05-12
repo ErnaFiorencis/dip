@@ -55,9 +55,10 @@ export const ComputerCompetition = () => {
       }, 1000);
       return () => clearInterval(countdown);
     } else if (timer === 0) {
+      const time_taken = 120 - timer;
       setTimer(-1);
       setWinner(ropePosition > 50 ? 'Vrijeme je isteklo, bio si bolji!' : 'Vrijeme je istrklo, računalo je bilo bolje');
-      handleGameEnd(ropePosition > 50, studentStats);
+      handleGameEnd(ropePosition > 50, studentStats, time_taken);
       setGameStarted(false);
     }
   }, [timer, gameStarted]);
@@ -66,7 +67,7 @@ export const ComputerCompetition = () => {
   useEffect(() => {
       if (gameStarted && currentQuestion) {
         console.log(studentStats);
-        const averageTime = studentStats.total_questions > 1 ? (studentStats.time_taken / studentStats.correct_answers) * 10000 : 7;
+        const averageTime = studentStats.total_questions > 1 ? ((120 - timer) / studentStats.correct_answers)  : 7;
         console.log('Average time taken:', averageTime);
         const accuracy = studentStats.total_questions > 0 ? studentStats.correct_answers / studentStats.total_questions : 0.5;
         const robotAnswerTime = Math.max(2, Math.min(averageTime + 1, averageTime - 1)); // Robot answers between 2 and 10 seconds
@@ -167,7 +168,7 @@ export const ComputerCompetition = () => {
     }
   };
 
-  const handleGameEnd = async (winner, studentStats) => {
+  const handleGameEnd = async (winner, studentStats, time_taken) => {
     console.log('Ending game session...');
       try {
         const response = await fetch(`${BASE_URL}/game-sessions/${sessionId}/end`, {
@@ -181,7 +182,7 @@ export const ComputerCompetition = () => {
             wrong_answers: studentStats.wrong_answers,
             total_questions: studentStats.total_questions,
             points: winner ? 3 + (timer > 0 ? 2 : 0) : 0, // 5 points for winning, +2 if time remains
-            time_taken: Math.floor(studentStats.time_taken * 10000),
+            time_taken: time_taken,//Math.floor(studentStats.time_taken * 10000),
             winner: winner
           }),
         });
@@ -215,12 +216,12 @@ export const ComputerCompetition = () => {
     if (ropePosition <= 0) {
       setWinner('Oh ne, izgubi si!');
       console.log('1')
-      handleGameEnd(false, studentStats);
+      handleGameEnd(false, studentStats, (120 - timer));
       setGameStarted(false);
     } else if (ropePosition >= 95) {
       setWinner('Bravo! Pobijedi si računalo!');
       console.log('2')
-      handleGameEnd(true, studentStats);
+      handleGameEnd(true, studentStats, (120 - timer));
       setGameStarted(false);
     }
     
