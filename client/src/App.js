@@ -9,6 +9,7 @@ import { AdminPage } from './pages/Admin/AdminPage';
 import { Profile } from './pages/Profile/Profile';
 import { Leaderboard } from './pages/Leaderboard/Leaderboard';
 import { Classroom } from './pages/Classroom/Classroom';
+import { AnketaForm } from './pages/Anketa/AnketaForm';
 import './App.css';
 import './fonts/pixelFont-sproutLands.ttf';
 
@@ -27,6 +28,7 @@ function App(){
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/leaderboard" element={<Leaderboard />} />
                 <Route path="/classroom/:classroom_id" element={<Classroom />} />
+                <Route path="/anketa" element={<AnketaForm />} />
             </Routes>
         </Router>
     );

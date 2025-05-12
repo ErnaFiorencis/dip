@@ -138,6 +138,20 @@ CREATE TABLE student_topic_ability (
 );
 `;
 
+const anketa = `
+drop table if exists anketa;
+CREATE TABLE anketa (
+    anketa_id SERIAL PRIMARY KEY,
+    student_id INT REFERENCES users(user_id),
+    game_mode VARCHAR(20), -- 'practice', 'pvp', 'computer'
+    zabava INT,            -- 1 (nije zabavno) do 3 (super zabavno)
+    motivacija INT,
+    ponovio_bi BOOLEAN,
+    najvise_svidjelo BOOLEAN,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+`
+
 
 
 async function setupDatabase() {
@@ -146,6 +160,7 @@ async function setupDatabase() {
         //await pool.query(sql_statistics);
         //await pool.query(points_table);
         //await pool.query(updates);
+        //await pool.query(anketa);
         console.log('🎉 Database schema created successfully!');
         console.log('✔️ tables created');
         console.log('✔️ Indexes & triggers added');

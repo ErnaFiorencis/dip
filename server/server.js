@@ -9,6 +9,7 @@ const subjectRoutes = require("./src/subjects/routes")
 const topicRoutes = require("./src/topics/routes")
 const gameSessionRoutes = require("./src/game-sessions/routes")
 const adminRoutes = require("./src/admin/routes")
+const anketaRoutes = require("./src/anketa/routes")
 
 //midleware
 app.use(cors());
@@ -20,6 +21,7 @@ app.use("/subjects", subjectRoutes)
 app.use("/topics", topicRoutes)
 app.use("/game-sessions", gameSessionRoutes)
 app.use("/admin", adminRoutes)
+app.use("/anketa", anketaRoutes)
 
 app.get('/', (req, res) => {
   res.send('Hello World!');

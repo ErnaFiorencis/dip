@@ -382,6 +382,7 @@ export const Profile = () => {
           )}
         </div>
       </div>
+      <button className="anketa-btn" onClick={() => navigate('/anketa')}>Riješi anketu</button>
     </div>
   );
 };
