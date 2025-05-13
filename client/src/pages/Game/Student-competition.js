@@ -495,7 +495,9 @@ export const StudentCompetition = () => {
                 <button type="submit" className="login-button">Login</button>
               </form>
               {errorMessage && <p className="error-message">{errorMessage}</p>}
+              <div style={{ margin: '20px auto', width: '60vh' }}>
               <Keyboard
+                style={{ margin: '20px auto', width: '60vh' }}
                 onChange={handleKeyboardChange}
                 inputName={keyboardTarget} // Important: this tells keyboard which input to update
                 value={keyboardInput} // Current value of the active input
@@ -516,7 +518,7 @@ export const StudentCompetition = () => {
                   ],
                 }}
                 display={{
-                  '{bksp}': '⌫',
+                  '{bksp}': 'obriši',
                   '{shift}': '⇧',
                   '{space}': '␣',
                 }}
@@ -526,7 +528,9 @@ export const StudentCompetition = () => {
                     setKeyboardLayout((prevLayout) => (prevLayout === 'default' ? 'shift' : 'default')); // Toggle layout
                   }
                 }}
+              
               />
+              </div>
             </>
           ) : countdown ? (
             <div className="waiting-state">
