@@ -161,7 +161,7 @@ const getRandomQuestion = async (req, res) => {
 };
 
 const generateQuestions = async (req, res) => {
-    const {topic_id, count = 5, school_level, grade_level } = req.body;
+    const {topic_id, count = 10, school_level, grade_level } = req.body;
     try {
         // Get topic info
         const topicResult = await pool.query(queries.getTopicInfo, [topic_id]);
