@@ -98,33 +98,35 @@ export const StudentCompetition = () => {
     setKeyboardInput(student1Credentials[field]); // Set keyboard input to current field value
   };
 
-  const fetchQuestions = async () => {
-    console.log(topic.topic_id);
-    const topic_id = topic.topic_id;
-    try {
-      const response = await fetch(`${BASE_URL}/questions/topic-active/${topic_id}`, {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-      });
-      if (!response.ok) {
-        setErrorMessage('Failed to fetch questions. Please try again.');
-        return;
+      const fetchQuestions = async () => {
+      console.log(topic.topic_id);
+      const topic_id = topic.topic_id;
+      try {
+        const response = await fetch(`${BASE_URL}/questions/topic-active/${topic_id}`, {
+          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+        });
+        if (!response.ok) {
+          setErrorMessage('Failed to fetch questions. Please try again.');
+          return;
+        }
+        const data = await response.json();
+        const formattedQuestions = data.map((q) => ({
+          question: q.question,
+          answers: [q.answer1, q.answer2, q.answer3, q.answer4],
+          correctAnswer: q.correct_answer,
+        }));
+        console.log('here');
+        setQuestions(formattedQuestions);
+        setCurrentQuestion(formattedQuestions[0]);
+      } catch (error) {
+        setErrorMessage('An error occurred while fetching questions.');
       }
-      const data = await response.json();
-      const formattedQuestions = data.map((q) => ({
-        question: q.question,
-        answers: [q.answer1, q.answer2, q.answer3, q.answer4],
-        correctAnswer: q.correct_answer,
-      }));
-      console.log('here');
-      setQuestions(formattedQuestions);
-      setCurrentQuestion(formattedQuestions[0]);
-    } catch (error) {
-      setErrorMessage('An error occurred while fetching questions.');
-    }
-  };
+    };
 
   // Fetch questions from the backend
   useEffect(() => {
+
+
     if (student1LoggedIn) {
       fetchQuestions();
     }
@@ -456,20 +458,6 @@ export const StudentCompetition = () => {
     </>
   );
 
-  // Enhanced button click handlers with touchstart event for better tablet support
-  const handleButtonClick = (handler) => {
-    return (e) => {
-      // Prevent default to avoid any unwanted behaviors
-      e.preventDefault();
-      e.stopPropagation();
-      
-      // Add a small delay to ensure the click is properly registered
-      setTimeout(() => {
-        handler();
-      }, 10);
-    };
-  };
-
   return (
     <div className="competition-container">
       {/* Player 1 Interface */}
@@ -550,28 +538,16 @@ export const StudentCompetition = () => {
               <h2>Bok, {student1Credentials.user_name}!</h2>
               <p>Pričekaj protivnika da započne igru...</p>
               <img src="/icons/cool.png" alt="Cool Sticker" className="sticker-cool" />
-              <button className='cancel' 
-                onClick={handleButtonClick(handleCancel)}
-                onTouchStart={handleButtonClick(handleCancel)}>
+              <button className='cancel' onClick={handleCancel}>
                 Odustani
               </button>
             </div>
           ) : winner ? (
             <>
+            <button className="st-comp-buttons" onClick={handlePlayer1Ready} disabled={player1Ready}>Ponovno Igraj</button>
+            <button className="st-comp-buttons cancel" onClick={handleCancel}>Odustani</button>
             <h2>{winner === "Player 1" ? "Bravo! Pobijedio si!" : "Izgubio si!"}</h2>
-            <button 
-              className="st-comp-buttons" 
-              onClick={handleButtonClick(handlePlayer1Ready)} 
-              onTouchStart={handleButtonClick(handlePlayer1Ready)}
-              disabled={player1Ready}>
-              Ponovno Igraj
-            </button>
-            <button 
-              className="st-comp-buttons cancel" 
-              onClick={handleButtonClick(handleCancel)}
-              onTouchStart={handleButtonClick(handleCancel)}>
-              Odustani
-            </button>
+
             </>
           ) : (
             renderGameInterface(1)
@@ -601,43 +577,20 @@ export const StudentCompetition = () => {
           <div className="waiting-state">
             <h1>Pričekaj protivnika da se prijavi...</h1>
             {student1LoggedIn && (
-              <button 
-                className="start-button" 
-                onClick={handleButtonClick(startGame)}
-                onTouchStart={handleButtonClick(startGame)}>
-                Započni igru
-              </button>
+              <button className="start-button" onClick={startGame}>Započni igru</button>
             )}
             <img src="/icons/sleepy.png" alt="Sleepy Sticker" className="sticker" />
-            <button 
-              className="cancel" 
-              onClick={handleButtonClick(handleGoBack)}
-              onTouchStart={handleButtonClick(handleGoBack)}>
+            <button className="cancel" onClick={handleGoBack}>
               Odustani
             </button>
           </div>
         ) : winner ? (
           <>
+          <button className="st-comp-buttons" onClick={handlePlayer2Ready} disabled={player2Ready}>Ponovno - isti igrač</button>
+          <button className="st-comp-buttons" onClick={handleCancel}>Ponovno - drugi igrač</button>
+          <button className="st-comp-buttons cancel" onClick={handleGoBack}>Odustani </button>
           <h2>{winner === "Player 2" ? "Pobijedio si!" : "Izgubio si!"}</h2>
-          <button 
-            className="st-comp-buttons" 
-            onClick={handleButtonClick(handlePlayer2Ready)}
-            onTouchStart={handleButtonClick(handlePlayer2Ready)} 
-            disabled={player2Ready}>
-            Ponovno - isti igrač
-          </button>
-          <button 
-            className="st-comp-buttons" 
-            onClick={handleButtonClick(handleCancel)}
-            onTouchStart={handleButtonClick(handleCancel)}>
-            Ponovno - drugi igrač
-          </button>
-          <button 
-            className="st-comp-buttons cancel" 
-            onClick={handleButtonClick(handleGoBack)}
-            onTouchStart={handleButtonClick(handleGoBack)}>
-            Odustani
-          </button>
+
           </>
         ) : (
           renderGameInterface(2)
