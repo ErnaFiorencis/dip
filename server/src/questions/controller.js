@@ -111,7 +111,9 @@ const getActiveQuestionsByTopic = async (req, res) => {
 
     try {
         const result = await pool.query(queries.getActiveQuestionsByTopic, [topic_id]);
-        res.status(200).json(result.rows);
+        // Shuffle the rows before sending them
+        const shuffledRows = result.rows.sort(() => Math.random() - 0.5);
+        res.status(200).json(shuffledRows);
     } catch (error) {
         console.error(error);
         res.status(500).send("Server error fetching questions");
@@ -132,6 +134,9 @@ const getAdaptiveQuestions = async (req, res) => {
   
       const questions = await pool.query(
         queries.getAdaptiveQuestions, [topic_id, userRating]);
+
+      const shuffledRows = questions.rows.sort(() => Math.random() - 0.5);
+      res.status(200).json(shuffledRows);
   
       res.json(questions.rows);
     } catch (error) {

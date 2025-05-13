@@ -50,7 +50,7 @@ module.exports = {
         SELECT * FROM quiz_questions 
         WHERE topic_id = $1 
         ORDER BY ABS(elo_rating - $2) 
-        LIMIT 10
+        LIMIT 20
       `,
     getTopicInfo: `SELECT name, description FROM topics WHERE topic_id = $1`,
     getQByTopic: `SELECT question FROM quiz_questions WHERE topic_id = $1`,

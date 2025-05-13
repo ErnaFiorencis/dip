@@ -16,7 +16,7 @@ export const Practice = () => {
     correctAnswer: 0  // Changed to 0-based index consistently
   }]);
   const [currentIdx, setCurrentIdx] = useState(0);
-  const [numberOfQuestions, setNumberOfQuestions] = useState(15);
+  const [numberOfQuestions, setNumberOfQuestions] = useState(10);
   const [timer, setTimer] = useState(0);
   const [wrongAnswerIdx, setWrongAnswerIdx] = useState(null);
   const [sessionId, setSessionId] = useState(null);

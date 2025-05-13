@@ -303,14 +303,6 @@ const getFilteredStats = async (req, res) => {
   const { classroom_id, subject_id, game_mode, topic_id } = req.query;
 
   try {
-    console.log('Parameters:', {
-      classroom_id,
-      subject_id,
-      game_mode,
-      topic_id,
-      user_id
-    });
-
     const result = await pool.query(queries.getFilteredStats, [
       parseInt(classroom_id, 10),
       parseInt(subject_id, 10),
@@ -321,9 +313,7 @@ const getFilteredStats = async (req, res) => {
       topic_id === 'all' ? 'all' : parseInt(topic_id, 10), // $5
       user_id                                      // $6
     ]);
-
-    console.log('Query Result:', result.rows);
-
+    console.log('Filtered stats:', result.rows[0]);
     res.json({
       success: true,
       data: result.rows[0] || { games: 0, wins: 0, points: 0 },

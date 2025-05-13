@@ -213,12 +213,12 @@ export const ComputerCompetition = () => {
 
 
   useEffect(() => {
-    if (ropePosition <= 0) {
+    if (ropePosition < 5) {
       setWinner('Oh ne, izgubi si!');
       console.log('1')
       handleGameEnd(false, studentStats, (120 - timer));
       setGameStarted(false);
-    } else if (ropePosition >= 95) {
+    } else if (ropePosition > 95) {
       setWinner('Bravo! Pobijedi si računalo!');
       console.log('2')
       handleGameEnd(true, studentStats, (120 - timer));

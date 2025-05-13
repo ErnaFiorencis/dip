@@ -98,9 +98,7 @@ export const StudentCompetition = () => {
     setKeyboardInput(student1Credentials[field]); // Set keyboard input to current field value
   };
 
-  // Fetch questions from the backend
-  useEffect(() => {
-    const fetchQuestions = async () => {
+      const fetchQuestions = async () => {
       console.log(topic.topic_id);
       const topic_id = topic.topic_id;
       try {
@@ -117,12 +115,17 @@ export const StudentCompetition = () => {
           answers: [q.answer1, q.answer2, q.answer3, q.answer4],
           correctAnswer: q.correct_answer,
         }));
+        console.log('here');
         setQuestions(formattedQuestions);
-        setCurrentQuestion(data[0]);
+        setCurrentQuestion(formattedQuestions[0]);
       } catch (error) {
         setErrorMessage('An error occurred while fetching questions.');
       }
     };
+
+  // Fetch questions from the backend
+  useEffect(() => {
+
 
     if (student1LoggedIn) {
       fetchQuestions();
@@ -200,10 +203,12 @@ export const StudentCompetition = () => {
   };
 
   const handleGoBack = () => {
+    console.log('Going back to the previous page');
     navigate('/', {state: location.state});
   }
   
   const handleCancel = () => {
+    console.log('Game cancelled');
     setTimer(0); // Stop the timer
     setGameStarted(false);
     setStudent1LoggedIn(false);
@@ -217,13 +222,13 @@ export const StudentCompetition = () => {
   }
 
   useEffect(() => {
-    if (ropePosition <= 5) {
+    if (ropePosition < 5) {
       setWinner("Player 1");
        // Stop the timer
       handleGameEnd("Player 1", timer);
       setTimer(-1);
 
-    } else if (ropePosition >= 95) {
+    } else if (ropePosition > 95) {
       setWinner("Player 2");
       console.log("Player 2 wins");
        // Stop the timer
@@ -234,6 +239,8 @@ export const StudentCompetition = () => {
   }, [ropePosition]);
 
   const startGame = async () => {
+    console.log('Starting game...');
+    await fetchQuestions();
     try {
       // Start Player 2's session (host)
       const player2Response = await fetch(`${BASE_URL}/game-sessions`, {
@@ -396,6 +403,7 @@ export const StudentCompetition = () => {
   };
   
   const handlePlayer2Ready = () => {
+    console.log("Player 2 ready");
     setPlayer2Ready(true);
     if (player1Ready) {
       setTimer(123);
@@ -415,7 +423,7 @@ export const StudentCompetition = () => {
       setShowAnswers(false); // Hide answers initially
       const timer = setTimeout(() => {
         setShowAnswers(true); // Show answers after 2 seconds
-      }, 1500);
+      }, 500);
       return () => clearTimeout(timer); // Cleanup timeout
     }
   }, [currentQuestion]);
