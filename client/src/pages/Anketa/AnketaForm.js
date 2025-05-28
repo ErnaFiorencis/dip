@@ -297,6 +297,9 @@ export const AnketaForm = ({ sessionId, onSubmitted }) => {
           Pošalji
         </button>
       </form>
+      <div className='thank-you-message'>
+        Nadam se da si uživao/la u igri! 😊
+      </div>
     </div>
   );
 };
