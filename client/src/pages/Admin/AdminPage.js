@@ -813,18 +813,22 @@ export const AdminPage = () => {
             <button className='add-question' onClick={handleGenerateQuestions}>
               {generating ? 'Generiram...' : 'Generiraj pitanja'}
             </button>
-            <input
-              type="dropdown"
-              options={[
-                'meta-llama/Llama-3.3-70B-Instruct-Turbo',
-                'google/gemma-2-27b-it',
-              ]}
-              placeholder="Odaberi model"
-              value={model}
-              onChange={(e) => setModel(e.target.value)}
-              className="model-input
-            "
-            />
+<select
+  value={model}
+  onChange={(e) => setModel(e.target.value)}
+  className="model-input"
+>
+  <option value="" disabled>
+    Odaberi model
+  </option>
+  <option value="meta-llama/Llama-3.3-70B-Instruct-Turbo">
+    meta-llama/Llama-3.3-70B-Instruct-Turbo
+  </option>
+  <option value="google/gemma-2-27b-it">
+    google/gemma-2-27b-it
+  </option>
+</select>
+
           </div>
           {generatedQuestions.length > 0 && (
             <div className="generated-questions-review">
