@@ -1,0 +1,361 @@
+Model: meta-llama/Llama-3.3-70B-Instruct-Turbo
+Pitanje: Kako se zove znanost koja pručava povijest Egipta
+Odgovori: Egiptologija, Arheologija, Povijest, Hijerografija
+Točan odgovor: 1
+
+Pitanje: Koji je bio ključni faktor opstanka drevnog Egipta
+Odgovori: Rijeka Nil, Pustinja Sahara, Planina Sina, Rijeka Jordan
+Točan odgovor: 1
+
+Pitanje: Kako su Egipćani smatrali svoje vladare
+Odgovori: Kao bogove, Kao kraljeve, Kao vojskovanje, Kao robove
+Točan odgovor: 1
+
+Pitanje: Zašto su Egipćani mumificirali mrtve
+Odgovori: Da bi osigurali vječni život, Da bi sačuvali tijelo, Da bi se riješili mrtvih, Da bi se zaštitili od zlih duhova
+Točan odgovor: 1
+
+Pitanje: S kim su se Egipćani sukobili tijekom Nove Države
+Odgovori: Hetiti, Grci, Rimljani, Asirija
+Točan odgovor: 1
+
+Without topic: prompt
+Pitanje: Tko je bio prvi faraon ujedinjenog Egipta 
+Odgovori: Ramses II, Hatshepsut, Menes, Tutankhamon
+Točan odgovor: 3
+
+Pitanje: Koji je bio glavni bog stvoritelj u egipatskoj mitologiji 
+Odgovori: Anubis, Horus, Sekhmet, Atum
+Točan odgovor: 4
+
+Pitanje: Što je bilo ime velike piramide u Gizi 
+Odgovori: Piramida Unasa, Piramida Userkafa, Piramida Kefrena, Piramida Khufua
+Točan odgovor: 4
+
+Pitanje: Koji je bio egipatski bog podzemnog svijeta 
+Odgovori: Osiris, Isis, Anubis, Horus
+Točan odgovor: 1
+
+Pitanje: Koji je bio naziv za egipatskog pisara 
+Odgovori: Medik, Svećenik, Pjesnik, Scriba
+Točan odgovor: 4
+Time taken: 4.85723876953125 seconds
+---------------------------
+Model: meta-llama/Llama-3.3-70B-Instruct-Turbo-Free
+Pitanje: Koji je bio ključni faktor koji je omogućio dešifriranje hijeroglifa u Egiptologiji
+Odgovori: Otkriće Kamen iz Rosette, Otkriće Piramida, Otkriće Sarcofaga, Otkriće Spomenika
+Točan odgovor: 1
+
+Pitanje: Zašto je rijeka Nil bila toliko važna za Egipćane
+Odgovori: Omogućavala je izgradnju velikih gradova, Osiguravala je plodnu zemlju za poljoprivredu, Omogućavala je trgovanje s drugim zemljama, Omogućavala je lov na divljač
+Točan odgovor: 2
+
+Pitanje: Koji je bio stav Egipćana prema svom vladaru
+Odgovori: Smatrali su ga kao običnog čovjeka, Smatrali su ga kao vojskovođu, Smatrali su ga kao bogovima, Smatrali su ga kao robovlasnikom
+Točan odgovor: 3
+
+Pitanje: Zašto su Egipćani mumificirali mrtve
+Odgovori: Da bi osigurali njihov zagrobni život, Da bi se riješili mrtvih, Da bi se zaštitili od bolesti, Da bi se izbjegla glad
+Točan odgovor: 1
+
+Pitanje: Tijekom koje je razdoblje Egipt doživio širenje i osvajanja
+Odgovori: Starog Kraljevstva, Srednjeg Kraljevstva, Nove Države, Kasnog Razdoblja
+Točan odgovor: 3
+
+Without topic: prompt
+Pitanje: Tko je bio prvi faraon ujedinjenog Egipta
+Odgovori: Ramses II, Tutankhamon, Menes, Kleopatra
+Točan odgovor: 3
+
+Pitanje: Koji je bio glavni bog stvaranja u egipatskoj mitologiji
+Odgovori: Anubis, Horus, Atum, Set
+Točan odgovor: 3
+
+Pitanje: Što je bilo ime velike piramide u Gizi
+Odgovori: Piramida Keopsa, Piramida Kefrena, Piramida Mikerina, Piramida Unasa
+Točan odgovor: 1
+
+Pitanje: Koji je bio egipatski bog zemlje
+Odgovori: Geb, Nut, Izis, Osiris
+Točan odgovor: 1
+
+Pitanje: Kako se zvala egipatska knjiga mrtvih
+Odgovori: Knjiga bogova, Knjiga faraona, Knjiga mrtvih, Knjiga duša
+Točan odgovor: 3
+Time taken: 5.373705863952637 seconds
+---------------------------
+Model: togethercomputer/Refuel-Llm-V2-Small
+Pitanje: Koja je bila ključna otkrića u razvoju Egiptologije? 
+Odgovori: Kamen iz Rosette, krivokrtašte, hijeroglifska tablica, umretni pek. 
+Točan odgovor: 1.
+
+Without topic: prompt
+Pitanje: Kako se proizvodi papir u drevnom Egiptu?
+Odgovori: [odgovor1], [odgovor2], [odgovor3], [odgovor4]
+Točan odgovor: 2
+Time taken: 0.7533783912658691 seconds
+---------------------------
+Model: Qwen/QwQ-32B
+<think>
+
+Okay, the user wants me to generate a quiz for first-year high school students about Egyptian history. Let me start by recalling the topics they mentioned. There are sections like Egyptology, the Nile, isolation, pharaohs, religion, expansion, and art/science. Each quiz question needs to be unique and based on these areas.
+
+First question: Maybe about Egyptology and the Rosetta Stone since that's a key point. The question could ask which artifact helped decode hieroglyphs. The options should include the Rosetta Stone, something else like the Palette of Narmer, maybe the Sphinx, and another random item like a pyramid. The correct answer is the Rosetta Stone.
+
+Second question on the Nile's importance. The options could be about fertile land, gold mining, trade routes, or military defense. The Nile provided fertile soil through flooding, so the answer is the first option.
+
+Third question about pharaohs being considered gods. The choices could be pharaohs as gods, high priests, leaders of armies, or tax collectors. The correct answer is gods.
+
+Fourth question on mummification's purpose. The options might include preserving the body for the afterlife, showing wealth, preventing disease, or honoring the Nile. The afterlife connection is key here, so the first option again.
+
+Fifth question about Egypt's expansion during the New Kingdom. The opponents were the Hittites, so the answer there is the Hittites. Other options could be the Persians, Romans, or Nubians. Need to make sure the time periods align correctly.
+
+I should check that all answers are from the provided notes and the questions are clear. Also, ensure no repeats and simple language. Let me structure each question with four options and the correct answer number. Avoid any markdown, just plain text as specified.
+</think>
+
+Pitanje: Što je kamen iz Rosette pomoglo u razumijevanju?  
+Odgovori: Egipatski hijeroglifi, Turške pjesme, Babilonski mitovi, Rimski zakoni  
+Točan odgovor: 1  
+
+Pitanje: Zašto je Nil bitan za egipatsku poljoprivredu?  
+Odgovori: Godišnji poplavi, Sjenka planina, Blizina mora, Plitko tlo  
+Točan odgovor: 1  
+
+Pitanje: Što su Egipćani smatrali da su faraoovi?  
+Odgovori: Bogovi na zemlji, Sјavjesti vojnika, Najveći poljoprivrednici, Nadzornici vodena  
+Točan odgovor: 1  
+
+Pitanje: Zašto su Egipćani mumirali mrtve?  
+Odgovori: Za vječni život, Da spase novac, Zbog zdravlja, Da osigura plodnost  
+Točan odgovor: 1  
+
+Pitanje: Koga je Egipat borao tijekom Nove Države?  
+Odgovori: Hetite, Grci, Šumi, Fenicijaci  
+Točan odgovor: 1
+
+Without topic: prompt
+<think>
+Alright, I need to create five unique quiz questions about the history of Egypt for first-year high school students. Let me start by recalling key topics from the history of Egypt that are typically covered at this educational level. 
+
+First, the ancient Egyptian dynasties come to mind. Maybe a question about the unification of Upper and Lower Egypt? The pharaoh responsible for that was Narmer, also known as Menes. I'll check that to be sure. 
+
+Next, the pyramids. The Great Pyramid of Giza was built for Khufu. That's a classic question. But I should phrase it so the options include other pharaohs to test their knowledge.
+
+The Rosetta Stone is another important topic. It helped decipher hieroglyphs, and it was found by the French during Napoleon's campaign. The correct discoverer would be the French, so the options might include others like British or Egyptians.
+
+The capital during the New Kingdom was Thebes, now known as Luxor. That's a good question. Students might confuse it with other cities like Memphis or Alexandria.
+
+Lastly, the annual flooding of the Nile was crucial for agriculture. The flooding came from the Ethiopian Highlands' rains. I should ensure the other options are plausible but incorrect, like snowmelt or local rains.
+
+Now, I need to make sure each question has four options with only one correct answer. Let me structure each question properly in Croatian, keeping the language simple. I'll avoid repeating any topics already used and check for clarity. Alright, I think these five cover different aspects of Egyptian history without overlap. Time to format them as specified.
+</think>
+
+Pitanje: Koja je riječ korisena za označavanje faraona kojima je pripadalo bogatstvo i moć u Egipatu?
+Odgovori: Faraoni-kraljevi, Faraoni-senati, Faraoni-faraoni, Faraoni-kadi
+Točan odgovor: 3
+
+Pitanje: Tko je zabilježio pobjedu nad rivalima i unifikaciju Egipta kao prvi egipatski farao?
+Odgovori: Ramses II, Djoser, Narmer, Tutankamon
+Točan odgovor: 3
+
+Pitanje: Što je bio glavni razlog zbog kojeg je Nil godišnje preplavljen?
+Odgovori: Snježni toplovi u Alpima, Kiša u Etiopskim planinama, Izvori podzemnih voda, Štete zbog vulkana
+Točan odgovor: 2
+
+Pitanje: Koja je plemena bila glavni protivnik Egipta tijekom stare dobe?
+Odgovori: Hiksovi, Fenicijci, Asirijci, Greci
+Točan odgovor: 1
+
+Pitanje: Što su Egipčani koristili za pisanje formalnih dokumenta i religijskih tekstova?
+Odgovori: Papyrus, Šaran, Kamen, Velebitski pamuk
+Točan odgovor: 1
+Time taken: 7.96537446975708 seconds
+---------------------------
+Model: mistralai/Mistral-7B-Instruct-v0.3
+Pitanje: Kojim otkrićem je Kamen iz Rosette omogućio dešifriranje hijeroglifa?
+Odgovori: A) Kamen iz Karnaka, B) Kamen iz Sakare, C) Kamen iz Rosette, D) Kamen iz Amarna
+Točan odgovor: 3
+
+Pitanje: Rijeka Nil bila je temelj opstanka Egipta, osiguravala plodnu zemlju i omogućila uspješnu poljoprivredu. Koja rijeka je to bila?
+Odgovori: A) Nil, B) Tigris, C) Jordan, D) Euphrates
+Točan odgovor: 1
+
+Pitanje: Egipćani su geografska izolacija štitila od vanjskih utjecaja. Također su vjerovali da su vladari smatrani bogovima. Kako je centralizirana vlast omogućila monumentalne građevine poput piramida?
+Odgovori: A) Pristupom vanjskim kulturama, B) Izgradnjom cesta i kanala, C) Izgradnjom piramida i drugih građevina, D) Razvojem industrije i prometa
+Točan odgovor: 3
+
+Pitanje: Bogovi poput Ra, Amona i Ozirisa imali su važnu ulogu u egipatskoj vjeri. Kako su mrtvi mumificirani kako bi osigurali vječni život?
+Odgovori: A) Da bi njihovi tijela bili sačuvana za buduće čuvanje, B) Da bi njihovi duhovi bili sačuvani u zagrobnom životu, C) Da bi njihovi tijela bili sačuvana za buduće vraćanje, D) Da bi njihovi duhovi bili sačuvani za buduće životinje
+Točan odgovor: 2
+
+Pitanje: Tijekom Nove Države Egipat se proširio zahvaljujući osvajanjima i sukobima s Hetitima. U štoj je toj državi nalazio se Hetitski Carstvo?
+Odgovori: A) Babilon, B) Perzija, C) Hetes, D) Grčka
+Točan odgovor: 3
+
+Without topic: prompt
+Pitanje 1: Ko je bio faraon koji je vladao Egiptom tijekom Novog Carstva?
+  Odgovori: 1. Amenhotep III, 2. Tutankhamon, 3. Ramses II, 4. Akhenaton
+  Točan odgovor: 3
+
+  Pitanje 2: Koji je bio glavni bog egipatskog panteona?
+  Odgovori: 1. Ra, 2. Anubis, 3. Isis, 4. Set
+  Točan odgovor: 1
+
+  Pitanje 3: Koju je drevnu egipatsku građevinu činila Velika piramida u Gizi?
+  Odgovori: 1. Hram, 2. Kraljevska palača, 3. Mausolej, 4. Piramida
+  Točan odgovor: 4
+
+  Pitanje 4: Kako su Egipćani razvijali životinjske životinje?
+  Odgovori: 1. Riječnim putevima, 2. Kopnenim putevima, 3. Kopnenim i riječnim putevima, 4. Plovidbom
+  Točan odgovor: 3
+
+  Pitanje 5: U kojoj je godini faraon Tutankhamon umro?
+  Odgovori: 1. 1323 pr. Kr., 2. 1336 pr. Kr., 3. 1341 pr. Kr., 4. 1350 pr. Kr.
+  Točan odgovor: 1
+Time taken: 2.5713396072387695 seconds
+---------------------------
+Model: google/gemma-2-27b-it
+Pitanje: Što je omogućilo dešifriranje egipatskih hijeroglifa?
+Odgovori: Kamen iz Rosette, Knjiga mrtvih, Piramida Kefrena, Sfinks
+Točan odgovor: 1
+
+Pitanje: Koja je rijeka bila temelj opstanka i prosperiteta drevnog Egipta?
+Odgovori: Tigris, Eufrat, Nil, Ganges
+Točan odgovor: 3
+
+Pitanje: Kako su Egipćani vjerovali da će postići vječni život?
+Odgovori: Kroz meditaciju, Pomuću mumifikacije, Kroz borbu, Pomuću dara bogata
+Točan odgovor: 2
+
+Pitanje: Što je karakteriziralo vladavinu faraona u drevnom Egiptu?
+Odgovori: Demokratija, Oligarhija, Centralizirana vlast, Anahija
+Točan odgovor: 3
+
+Pitanje: Što je bio glavni bogovi u drevnom Egiptu?
+Odgovori: Zeus, Amon, Ares, Thor
+Točan odgovor: 2
+
+Without topic: prompt
+Pitanje: Kako se zvao slavni faraon koji je nadgledao gradnju velike piramide u Gizi?
+Odgovori: Tutankamon, Ramzes II, Keops, Amenhotep
+Točan odgovor: 3
+
+Pitanje: Što je bio glavni bog u egipatskoj mitologiji?
+Odgovori: Horus, Ra, Anubis, Osiris
+Točan odgovor: 2
+
+Pitanje: Kako se zvao sustav pisanja koji su koristili drevni Egipćani?
+Odgovori: Kuneiform, Hiroglifi, Latinica, Abeceda
+Točan odgovor: 2
+
+Pitanje: Šta su mumificirali drevni Egipćani?
+Odgovori: Životinje, Ljudi, Biljke, Kuće
+Točan odgovor: 2
+
+Pitanje: Koje je rijeku smatrali Egipćani važnom za svoj život?
+Odgovori: Nil, Tigris, Eufrat, Ganges
+Točan odgovor: 1
+Time taken: 6.361185789108276 seconds
+---------------------------
+Model: marin-community/marin-8b-instruct
+Pitanje: Šta je Kamen iz Rosette?
+
+Odgovori: Kamen iz Rosette je ulara Egiptologija
+Točan odgovor: 1
+
+Without topic: prompt
+Pitanje: Kada je Egipt bilo uključeno u Sajt Vele?
+
+Odgovori: [Egipt je bilo uključeno u Sajt Vele u 2935 prstol]
+
+Točan odgovor: 1
+Time taken: 0.5207576751708984 seconds
+---------------------------
+Model: meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8
+Pitanje: Koje je otkriće bilo ključno za dešifriranje hijeroglifa?
+Odgovori: Kamen iz Gize, Knjiga mrtvih, Kamen iz Rosette, Aleksandrijski svjetionik
+Točan odgovor: 3
+
+Pitanje: Što je bilo temelj opstanka drevnog Egipta?
+Odgovori: Pustinja, Rijeka Nil, More, Planine
+Točan odgovor: 2
+
+Pitanje: Kako su Egipćani gledali na svoje vladare?
+Odgovori: Kao na obične ljude, Kao na bogove, Kao na strance, Kao na neprijatelje
+Točan odgovor: 2
+
+Pitanje: Zašto su Egipćani prakticirali mumificiranje?
+Odgovori: Kako bi poštedili novac, Kako bi osigurali vječni život, Kako bi se zaštitili od bolesti, Kako bi impresionirali druge narode
+Točan odgovor: 2
+
+Pitanje: Što je karakteriziralo razdoblje Nove Države u Egiptu?
+Odgovori: Politička nestabilnost, Kulturalni preporod, Širenje i ratovi, Ekonomska kriza
+Točan odgovor: 3
+
+Without topic: prompt
+Pitanje: Tko je bio prvi faraon koji je ujedinio Gornji i Donji Egipat?
+Odgovori: Tutankhamon, Ramses II, Narmer, Hatshepsut
+Točan odgovor: 3
+
+Pitanje: Koja je bila glavna uloga faraona u starom Egiptu?
+Odgovori: Svećenik, Vojskovođa, Vladar i bog, Trgovac
+Točan odgovor: 3
+
+Pitanje: Što je bila svrha gradnje piramida u starom Egiptu?
+Odgovori: Hramovi za bogove, Grobnice za faraone, Utvrde za obranu, Skladišta za žito
+Točan odgovor: 2
+
+Pitanje: Koji je bio najpoznatiji egipatski bog sunca?
+Odgovori: Anubis, Isis, Ra, Osiris
+Točan odgovor: 3
+
+Pitanje: Kako se zvala žena-faraon koja je vladala Egiptom u 15. stoljeću prije Krista?
+Odgovori: Nefertiti, Kleopatra, Hatshepsut, Merneptah
+Točan odgovor: 3
+Time taken: 11.983522891998291 seconds
+---------------------------
+Model: perplexity-ai/r1-1776
+<think>
+Okay, let me tackle this. The user wants me to generate a quiz for 1st-grade high school students about the history of Egypt. The rules are clear: 5 unique questions, simple Croatian, 4 answers each, only one correct, no repeated questions from previous ones mentioned, and a specific format without any extra text.
+
+First, I need to recall the previous questions they provided to avoid repetition. Looking at their examples, the topics covered include Egyptology and the Rosetta Stone, the Nile's importance, pharaohs as gods, religion and the afterlife, expansion during the New Kingdom, and art/science. So I should avoid those exact angles.
+
+Let me brainstorm new topics. Maybe focus on specific pharaohs, famous monuments other than pyramids, daily life, social structure, or significant events. Let's see.
+
+Question 1: A common topic is the Great Sphinx. Ask where it's located. The correct answer is Giza. Distractors could be other Egyptian cities.
+
+Question 2: The role of the Nile's flooding. Previous questions mentioned its importance for agriculture, so this is a bit related but different angle. Correct answer about black soil.
+
+Question 3: A famous female pharaoh, Hatshepsut. She's a good example, and maybe students might confuse her with Cleopatra.
+
+Question 4: The Book of the Dead. It's related to the afterlife but not directly covered in previous questions. Correct answer about guiding the soul.
+
+Question 5: The main purpose of pyramids. They were tombs, so that's the answer. Distractors could include temples or treasures.
+
+Now, check for uniqueness against the provided examples. The previous ones didn't mention the Sphinx, Hatshepsut, the Book of the Dead, or the pyramid's purpose directly. The Nile's flooding was touched on but here it's about the reason for fertility. Seems okay.
+
+Ensure the language is simple. Use cities like Kairo, Luxor, Alexandria as distractors. For the Book of the Dead, options are other religious texts. Make sure answers are clear and only one is correct. Double-check historical accuracy. Pharaohs as gods was covered before, but Hatshepsut as a female pharaoh is a new angle. The Sphinx location is factual. The Nile's black soil from flooding is correct. Pyramids as tombs is basic knowledge.
+
+Formatting: Each question followed by four answers and the correct number. No markdown, just plain text. Number the questions, list answers, then the correct one. Avoid repeating any structures from the examples. Looks good.
+</think>
+
+Pitanje: Gdje se nalazi čuvena Velika Sfinga u Egiptu?  
+Odgovori: Kairo, Giza, Aleksandrija, Luxor  
+Točan odgovor: 2  
+
+Pitanje: Koja je rijeka bila ključna za razvoj egipatske civilizacije?  
+Odgovori: Tigris, Nil, Eufrat, Jordan  
+Točan odgovor: 2  
+
+Pitanje: Tko je bio prva poznata žena faraon u povijesti Egipta?  
+Odgovori: Kleopatra, Hatšepsut, Nefertiti, Nefertari  
+Točan odgovor: 2  
+
+Pitanje: Kako se zvao egipatski sustap pisanja koji se koristio u religijske svrhe?  
+Odgovori: Klinasto pismo, Hijeroglifi, Latinica, Runsko pismo  
+Točan odgovor: 2  
+
+Pitanje: Zašto su Egipćani gradili piramide?  
+Odgovori: Kao hramove, Kao skladišta hrane, Kao grobnice faraona, Kao vojne tvrđave  
+Točan odgovor: 3
+

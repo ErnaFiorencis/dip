@@ -9,6 +9,7 @@ export const AdminPage = () => {
   const [selectedSubject, setSelectedSubject] = useState(null);
   const [selectedTopic, setSelectedTopic] = useState(null);
   const navigate = useNavigate();
+  const [model, setModel] = useState('meta-llama/Llama-3.3-70B-Instruct-Turbo'); // Default model
 
   const [editingQuestion, setEditingQuestion] = useState(null);
   const [addingClassroom, setAddingClassroom] = useState(false);
@@ -521,7 +522,8 @@ export const AdminPage = () => {
           topic_id: selectedTopic,
           school_level: currentClassroom.school_level,
           grade_level: currentClassroom.grade_level,
-          count: 5 
+          count: 10,
+          model: model
         })
       });
       if (!response.ok) {
@@ -811,6 +813,18 @@ export const AdminPage = () => {
             <button className='add-question' onClick={handleGenerateQuestions}>
               {generating ? 'Generiram...' : 'Generiraj pitanja'}
             </button>
+            <input
+              type="dropdown"
+              options={[
+                'meta-llama/Llama-3.3-70B-Instruct-Turbo',
+                'google/gemma-2-27b-it',
+              ]}
+              placeholder="Odaberi model"
+              value={model}
+              onChange={(e) => setModel(e.target.value)}
+              className="model-input
+            "
+            />
           </div>
           {generatedQuestions.length > 0 && (
             <div className="generated-questions-review">

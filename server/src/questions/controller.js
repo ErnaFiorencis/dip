@@ -161,7 +161,7 @@ const getRandomQuestion = async (req, res) => {
 };
 
 const generateQuestions = async (req, res) => {
-    const {topic_id, count = 10, school_level, grade_level } = req.body;
+    const {topic_id, count = 10, school_level, grade_level, model='meta-llama/Llama-3.3-70B-Instruct-Turbo' } = req.body;
     try {
         // Get topic info
         const topicResult = await pool.query(queries.getTopicInfo, [topic_id]);
@@ -171,7 +171,7 @@ const generateQuestions = async (req, res) => {
         
         const topic = topicResult.rows[0];
         
-        // Get existing questions
+
         const existingQuestions = await pool.query(queries.getQByTopic, [topic_id]);
 
         const systemPrompt = `Tvoj posao je generirati kviz pitanja za učenike ${grade_level}. razreda ${school_level} škole. Slijedi ova pravila:
@@ -190,9 +190,8 @@ const generateQuestions = async (req, res) => {
 
         const userPrompt = `Opis teme: ${topic.description || 'Bez dodatnog opisa'}`;
 
-        // Generate with AI
         const response = await client.chat.completions.create({
-            model: 'meta-llama/Llama-3-70b-chat-hf',
+            model: model,
             messages: [
                 { role: 'system', content: systemPrompt },
                 { role: 'user', content: userPrompt }
