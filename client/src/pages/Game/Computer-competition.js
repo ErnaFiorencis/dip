@@ -70,9 +70,9 @@ export const ComputerCompetition = () => {
         const averageTime = studentStats.total_questions > 1 ? ((120 - timer) / studentStats.correct_answers)  : 7;
         console.log('Average time taken:', averageTime);
         const accuracy = studentStats.total_questions > 0 ? studentStats.correct_answers / studentStats.total_questions : 0.5;
-        const robotAnswerTime = Math.max(2, Math.min(averageTime + 1, averageTime - 1)); // Robot answers between 2 and 10 seconds
+        const robotAnswerTime = Math.max(1.8, averageTime - 1.2); // Robot answers between 2 and 10 seconds
         console.log('Robot answer time:', robotAnswerTime);
-        const robotCorrectChance = Math.random() < Math.max(accuracy + 0.15, 0.5) ? true : false;
+        const robotCorrectChance = Math.random() < Math.max(Math.min(accuracy + 0.25, 1.0), 0.5) ? true : false;
   
         const interval = setTimeout(() => {
           setRobotIsAnswering(true);
