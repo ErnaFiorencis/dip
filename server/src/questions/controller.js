@@ -137,8 +137,7 @@ const getAdaptiveQuestions = async (req, res) => {
 
       const shuffledRows = questions.rows.sort(() => Math.random() - 0.5);
       res.status(200).json(shuffledRows);
-  
-      res.json(questions.rows);
+      //res.json(questions.rows);
     } catch (error) {
       console.error('Error fetching adaptive questions:', error);
       res.status(500).json({ error: 'Server error' });
